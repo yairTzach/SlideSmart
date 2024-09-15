@@ -1,0 +1,99 @@
+**Topic: Greedy Algorithms**
+
+**Easy Questions:**
+
+1. What is the main characteristic of a greedy algorithm?
+   a) It always makes the optimal choice
+   b) It always explores all possible options
+   c) It always makes the choice that looks best at the moment
+   d) It always backtracks after making a decision
+
+2. In the activity-selection problem, what is the goal of the algorithm?
+   a) Maximize time spent on rides
+   b) Ride as many rides as possible
+   c) Minimize the number of rides
+   d) Choose rides randomly
+
+3. What is the time complexity of the activity selection greedy algorithm?
+   a) O(n)
+   b) O(n^2)
+   c) O(log n)
+   d) O(n log n)
+
+4. What property does the activity selection problem exhibit?
+   a) Optimal choice property
+   b) Greedy choice property
+   c) Dynamic choice property
+   d) Random choice property
+
+5. What is the intuition behind the activity selection greedy algorithm?
+   a) Always pick the most expensive ride
+   b) Always pick the earliest to finish ride available at the time
+   c) Always pick the ride with the longest queue
+   d) Always pick the ride with the shortest duration
+
+**Medium Questions:**
+
+1. How does the greedy algorithm solve the activity selection problem?
+   a) Sorting activities by start time
+   b) Sorting activities by finish time
+   c) Sorting activities by duration
+   d) Selecting activities randomly
+
+2. What is the induction claim used in the optimality proof of the greedy algorithm?
+   a) For every k, there exists an optimal solution that includes the first k steps of the greedy algorithm
+   b) For every k, after selecting k activities, there exists an optimal solution that includes the first k activities selected by Greedy
+   c) For every k, the greedy algorithm always makes the best choice
+   d) For every k, the greedy algorithm selects the most expensive activity
+
+3. What data structure is typically used in the implementation of a priority queue in Prim's algorithm?
+   a) Stack
+   b) Queue
+   c) Heap
+   d) Array
+
+4. In the context of minimum spanning trees, what is the purpose of Prim's algorithm?
+   a) To maximize the total cost of the tree
+   b) To minimize the total number of edges
+   c) To find a subset of edges with the lowest total cost that forms a tree
+   d) To find the shortest path between two vertices
+
+5. What is the main difference between Kruskal's algorithm and Prim's algorithm?
+   a) Kruskal uses a priority queue, while Prim uses a stack
+   b) Kruskal adds edges to the tree based on cheapest cost, while Prim adds edges based on connectivity
+   c) Kruskal guarantees the shortest path, while Prim guarantees the lowest cost
+   d) Kruskal always starts with a single vertex, while Prim starts with all vertices
+
+**Hard Questions:**
+
+1. Explain the concept of the greedy choice property in the context of algorithms.
+   a) Locally optimal choice equals globally optimal solution
+   b) Locally suboptimal choice equals globally optimal solution
+   c) Locally optimal choice equals globally suboptimal solution
+   d) Locally suboptimal choice equals globally suboptimal solution
+
+2. How does the induction claim help in proving the optimality of the greedy algorithm?
+   a) It ensures that the algorithm always makes the best choice
+   b) It guarantees that the algorithm converges to the optimal solution
+   c) It shows that at each step, the algorithm maintains the optimal solution
+   d) It provides a way to extend the optimal solution from one step to the next
+
+3. What is the significance of the cut definition in the context of minimum spanning trees?
+   a) It helps identify the edges that connect different subsets of vertices
+   b) It defines the cost associated with removing an edge from the tree
+   c) It determines the order in which edges are added to the tree
+   d) It specifies the maximum weight of edges in the tree
+
+4. Explain the process of using a priority queue in Prim's algorithm to find the minimum spanning tree.
+   a) The priority queue stores all vertices and their corresponding costs
+   b) The priority queue stores all edges and their corresponding costs
+   c) The priority queue stores the vertices with the lowest cost first
+   d) The priority queue stores the edges with the lowest cost first
+
+5. How does the greedy algorithm approach the supermarket sale problem in terms of pairing products?
+   a) It pairs products randomly to minimize the total cost
+   b) It pairs the two highest-priced products together
+   c) It pairs products based on their cost in non-decreasing order
+   d) It pairs products to maximize the total sum paid
+
+**End of Trivia Questions**

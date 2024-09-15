@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Questions</title>
+    <link rel="stylesheet" href="../static/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="../static/css/questions.css" media="screen">
+    <script src="../static/js/jquery.js" defer></script>
+    <script src="../static/js/nicepage.js" defer></script>
+    <meta name="theme-color" content="#478ac9">
+</head>
+<body>
+    <div class="u-container-align-center u-container-style">
+        <h1 id="question-text">Loading questions...</h1>
+        <div id="options-container"></div>
+        <button id="next-question-btn" style="display:none;">Next Question</button>
+    </div>
+
+    <script>
+      let currentQuestionIndex = 0;
+      let questions = [];
+
+      // Fetch the questions from the server
+      function fetchQuestions() {
+          const filename = "a.txt"; // Replace with the actual filename
+          fetch(`/get_questions/${filename}`)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error("Network response was not ok");
+              }
+              return response.json();
+          })
+          .then(data => {
+              if (data.error) {
+                  document.getElementById('question-text').innerText = data.error;
+              } else {
+                  questions = data;
+                  showQuestion(currentQuestionIndex);
+              }
+          })
+          .catch(error => {
+              console.error("Error fetching questions:", error);
+              document.getElementById('question-text').innerText = "Error loading questions.";
+          });
+      } // <- Missing closing bracket added here
+
+      // Display the current question
+      function showQuestion(index) {
+          const question = questions[index];
+          document.getElementById('question-text').innerText = question.question;
+          const optionsContainer = document.getElementById('options-container');
+          optionsContainer.innerHTML = ''; // Clear previous options
+
+          question.options.forEach(option => {
+              const button = document.createElement('button');
+              button.innerText = option;
+              button.onclick = () => {
+                  document.getElementById('next-question-btn').style.display = 'block';
+              };
+              optionsContainer.appendChild(button);
+          });
+      }
+
+      // Move to the next question
+      document.getElementById('next-question-btn').addEventListener('click', () => {
+          currentQuestionIndex++;
+          if (currentQuestionIndex < questions.length) {
+              showQuestion(currentQuestionIndex);
+              document.getElementById('next-question-btn').style.display = 'none'; // Hide button until next option is clicked
+          } else {
+              document.getElementById('question-text').innerText = "Quiz completed!";
+              document.getElementById('options-container').innerHTML = ''; // Clear options
+              document.getElementById('next-question-btn').style.display = 'none'; // Hide button
+          }
+      });
+
+      // Fetch and display the questions on page load
+      fetchQuestions();
+  </script>
+</body>
+</html>
