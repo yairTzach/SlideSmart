@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="​Library Education, ​Meet our Principal, ​Helping each child find and follow their best learning path.">
+    <meta name="description" content="">
+    <title>1-30</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage1.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aboutUs.css') }}" media="screen">
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery1.js') }}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage1.js') }}" defer=""></script>
+    <meta name="generator" content="Nicepage 6.16.5, nicepage.com">
+    <meta name="referrer" content="origin">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:400">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="1-30">
+    <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+    <style>
+        .speaker-icon {
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+
+
+</head>
+<style>
+  .speaker-icon {
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      width: 40px;
+      height: 40px;
+  }
+  
+</style>
+<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": ""
+  }</script>
+  <meta name="theme-color" content="#478ac9">
+  <meta property="og:title" content="1-30">
+  <meta property="og:type" content="website">
+
+
+</head>
+
+<body data-home-page="1-30.html" data-home-page-title="1-30" data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
+
+<!-- Speaker Icon -->
+<img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker-off.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
+
+<!-- Background Music -->
+<audio id="bg-audio" loop>
+  <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const audioElement = document.getElementById("bg-audio");
+  const speakerIcon = document.getElementById("speaker");
+  
+  // Function to toggle audio play/pause
+  function toggleAudio() {
+      if (audioElement.paused) {
+          audioElement.play();
+          speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";  // Speaker ON image
+      } else {
+          audioElement.pause();
+          speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";  // Speaker OFF image
+      }
+  }
+  
+  // Store the current time of the audio in localStorage before leaving the page
+  window.addEventListener('beforeunload', function () {
+      localStorage.setItem('audioPlaying', !audioElement.paused);
+      localStorage.setItem('audioTime', audioElement.currentTime); // Save the current time
+  });
+  
+  // Restore the audio state and time when the page loads
+  window.addEventListener('DOMContentLoaded', function () {
+      const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
+      const audioTime = localStorage.getItem('audioTime') || 0; // Default to 0 if no time is stored
+      
+      audioElement.currentTime = audioTime; // Set the saved time
+      
+      if (audioPlaying) {
+          audioElement.play();
+          speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
+      } else {
+          audioElement.pause();
+          speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
+      }
+  });
+  </script>
+
+    <section class="u-align-center u-clearfix u-image u-shading u-section-1" id="sec-7616" data-image-width="1980" data-image-height="1114">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-custom-font u-font-lobster u-text u-text-body-alt-color u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Welcome to Slide Smart ! </h1>
+        <h3 class="u-text u-text-body-alt-color u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Already one of us ?&nbsp; </h3>
+        <h3 class="u-text u-text-body-alt-color u-text-3" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Join us for free !&nbsp;</h3>
+        <span class="u-file-icon u-icon u-icon-1" data-href="register" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
+            <img src="{{ url_for('static', filename='images/942748.png') }}" alt="">
+        </span>
+        <span class="u-file-icon u-icon u-icon-2" data-href="login" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
+            <img src="{{ url_for('static', filename='images/4753341.png') }}" alt="">
+        </span>
+                <h3 class="u-text u-text-body-alt-color u-text-4" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Who are you Slide Smart ? </h3>
+        <div class="u-video u-video-contain u-video-1">
+          <div class="embed-responsive embed-responsive-1">
+            <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/B9YKnNtFqds?mute=0&amp;showinfo=0&amp;controls=0&amp;start=0" frameborder="0" allowfullscreen=""></iframe>
+          </div>
+        </div>
+        <h3 class="u-text u-text-body-alt-color u-text-5" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
+          Scroll down for more information !
+      </h3>
+      <span class="u-file-icon u-icon u-icon-3" data-animation-name="bounceIn" data-animation-duration="1000" data-animation-delay="0" data-animation-direction="">
+          <img src="{{ url_for('static', filename='images/31581.png') }}" alt="">
+      </span>
+            </div>
+    </section>
+    <section class="u-align-center u-clearfix u-container-align-center u-white u-section-2" id="carousel_2f1f">
+      <div class="u-expanded-width u-gradient u-opacity u-opacity-55 u-shape u-shape-rectangle u-shape-1" data-animation-name="rollIn" data-animation-duration="1000" data-animation-direction=""></div>
+      <div class="data-layout-selected u-clearfix u-gutter-40 u-layout-spacing-vertical u-layout-wrap u-layout-wrap-1">
+        <div class="u-gutter-0 u-layout">
+          <div class="u-layout-row">
+            <div class="u-size-31 u-size-60-md">
+              <div class="u-layout-col">
+                <div class="u-container-style u-hidden-md u-hidden-sm u-hidden-xs u-layout-cell u-right-cell u-size-20 u-layout-cell-1" wfd-invisible="true">
+                  <div class="u-container-layout u-container-layout-1"></div>
+                </div>
+                <div class="u-align-center u-container-align-center u-container-style u-layout-cell u-radius-20 u-right-cell u-shape-round u-size-40 u-white u-layout-cell-2" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-direction="Left" data-animation-delay="250">
+                  <div class="u-container-layout u-container-layout-2">
+                    <img class="u-expanded-width u-image u-image-round u-radius-20 u-image-1" 
+                    src="{{ url_for('static', filename='images/bn.jpg') }}" 
+                    alt="" 
+                    data-image-width="800" 
+                    data-image-height="800" 
+                    data-animation-name="fadeIn" 
+                    data-animation-duration="2000" 
+                    data-animation-direction="Left" 
+                    data-animation-delay="250">
+                                    <h5 class="u-text u-text-1"> Learn with Confidence</h5>
+                    <p class="u-text u-text-2"> Upload your lecture slides and let us turn them into fun trivia games that adapt to your learning needs. Whether you're in university or high school, our tool makes studying enjoyable while helping you master your subjects. Plus, we track your progress and create new games focused on strengthening your weaknesses.</p>
+                    <a href="#" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1" data-animation-name="rollIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="500"> Start Your Journey</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-size-29 u-size-60-md">
+              <div class="u-layout-col">
+                <div class="u-align-center u-container-align-center u-container-style u-layout-cell u-left-cell u-radius-20 u-size-40 u-layout-cell-3" data-animation-name="zoomIn" data-animation-duration="2000" data-animation-direction="">
+                  <div class="u-container-layout u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-valign-top-lg u-valign-top-xl u-container-layout-3" src="">
+                    <img class="u-image u-image-round u-radius-20 u-image-2" 
+                    src="{{ url_for('static', filename='images/kj.jpg') }}" 
+                    data-image-width="1200" 
+                    data-image-height="1002" 
+                    data-animation-name="fadeIn" 
+                    data-animation-duration="1000" 
+                    data-animation-direction="Right" 
+                    data-animation-delay="250">
+                                  </div>
+                </div>
+                <div class="u-align-center u-container-align-center u-container-style u-layout-cell u-left-cell u-size-20 u-white u-layout-cell-4">
+                  <div class="u-container-layout u-container-layout-4">
+                    <h3 class="u-text u-text-default u-text-3"> School librarians hear the question all the time</h3>
+                    <h5 class="u-text u-text-4"> Sharpen Your Skills</h5>
+                    <p class="u-text u-text-5"> Upload your lecture slides and watch them transform into interactive trivia games designed to challenge and reinforce your knowledge. Get ready to engage with your learning material in a fun and effective way, making study time something to look forward to.<br>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-container-align-center u-palette-3-base u-section-3" id="carousel_aed0">
+      <div class="u-gradient u-opacity u-opacity-55 u-shape u-shape-rectangle u-shape-1" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-direction="Left"></div>
+      <div class="u-list u-list-1">
+        <div class="u-repeater u-repeater-1">
+          <div class="u-container-style u-list-item u-radius-20 u-repeater-item u-shape-round u-white u-list-item-1" data-animation-name="flipIn" data-animation-duration="1000" data-animation-direction="X" data-animation-delay="250">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+              <h3 class="u-text u-text-default u-text-palette-1-base u-text-1">01</h3>
+              <p class="u-text u-text-2"> Upload your lecture slides easily.</p>
+            </div>
+          </div>
+          <div class="u-container-style u-list-item u-radius-20 u-repeater-item u-shape-round u-white" data-animation-name="flipIn" data-animation-duration="1000" data-animation-direction="X" data-animation-delay="250">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+              <h3 class="u-text u-text-default u-text-palette-1-base u-text-3">02</h3>
+              <p class="u-text u-text-4"> Get interactive trivia games based on your slides.</p>
+            </div>
+          </div>
+          <div class="u-container-style u-list-item u-radius-20 u-repeater-item u-shape-round u-white" data-animation-name="flipIn" data-animation-duration="1000" data-animation-direction="X" data-animation-delay="250">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+              <h3 class="u-text u-text-default u-text-palette-1-base u-text-5">03</h3>
+              <p class="u-text u-text-6"> We analyze your performance and generate new games to target your weaknesses.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="u-gradient u-shape u-shape-circle u-shape-2" data-animation-name="customAnimation" data-animation-duration="1000" data-animation-direction="" data-animation-delay="250"></div>
+    </section>
+    <section class="u-clearfix u-section-4" id="carousel_08cf">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-gradient u-shape u-shape-rectangle u-shape-1"></div>
+        <img class="u-align-left u-image u-image-round u-radius-20 u-image-1" 
+        data-image-width="900" 
+        data-image-height="900" 
+        src="{{ url_for('static', filename='images/5178414.jpg') }}">
+            <div class="u-container-style u-grey-5 u-group u-radius-20 u-shape-round u-group-1">
+          <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-container-layout-1">
+            <h3 class="u-align-left u-text u-text-body-color u-text-default u-text-1"> Good things don’t come easy</h3>
+            <p class="u-align-left u-text u-text-2"> Learning can be challenging, but with the right tools, it becomes enjoyable. Upload your lecture slides and start improving your skills through personalized trivia games that make studying both effective and fun. </p>
+            <a href="#" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1">learn more</a>
+          </div>
+        </div>
+        <div class="u-gradient u-shape u-shape-circle u-shape-2"></div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-container-align-center u-grey-5 u-section-5" id="sec-686e">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1"> Meet our Principal</h2>
+        <div class="u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-align-left u-container-align-left u-container-style u-custom-item u-gradient u-list-item u-radius-20 u-repeater-item u-shape-round u-list-item-1">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <h4 class="u-custom-item u-text u-text-body-alt-color u-text-default u-text-2"> Learning is an active process</h4>
+                <p class="u-custom-item u-text u-text-body-alt-color u-text-default u-text-3"> We believe that learning should be interactive and engaging. Our platform turns your lecture slides into trivia games, making studying dynamic and fun.</p>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-left u-container-style u-custom-item u-list-item u-radius-20 u-repeater-item u-shape-round u-video-cover u-white u-list-item-2">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <h4 class="u-custom-item u-text u-text-default u-text-4"> Help students set challenging goals</h4>
+                <p class="u-custom-item u-text u-text-default u-text-5"> Our platform helps students aim higher by focusing on areas that need improvement, creating personalized games that challenge their knowledge.</p>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-left u-container-style u-custom-item u-list-item u-radius-20 u-repeater-item u-shape-round u-video-cover u-white u-list-item-3">
+              <div class="u-container-layout u-similar-container u-container-layout-3">
+                <h4 class="u-custom-item u-text u-text-default u-text-6"> Give students positive reinforcement</h4>
+                <p class="u-custom-item u-text u-text-default u-text-7"> We provide instant feedback and encouragement, helping students see their progress and stay motivated to improve.</p>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-left u-container-style u-custom-item u-gradient u-list-item u-radius-20 u-repeater-item u-shape-round u-video-cover u-list-item-4">
+              <div class="u-container-layout u-similar-container u-container-layout-4">
+                <h4 class="u-custom-item u-text u-text-body-alt-color u-text-default u-text-8"> Work individually with students</h4>
+                <p class="u-custom-item u-text u-text-body-alt-color u-text-default u-text-9"> Our trivia games adapt to each student's needs, focusing on personal weaknesses to strengthen their understanding in key areas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-6" id="sec-bf70">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="custom-expanded u-gradient u-shape u-shape-rectangle u-shape-1"></div>
+        <img class="custom-expanded u-image u-image-1" 
+        src="{{ url_for('static', filename='images/nn.jpg') }}" 
+        data-image-width="1080" 
+        data-image-height="1080">
+            <div class="u-container-style u-group u-radius-20 u-shape-round u-white u-group-1">
+          <div class="u-container-layout u-valign-middle u-container-layout-1">
+            <h2 class="u-text u-text-1"> Helping each child find and follow their best learning path.</h2>
+            <p class="u-text u-text-2"> Our platform analyzes your performance and creates trivia games that focus on subjects where you need the most improvement, ensuring you master your studies.</p>
+            <a href="#" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1">Watch the video </a>
+          </div>
+        </div>
+        <div class="u-list u-list-1">
+</g></svg></span>
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-7" id="carousel_33aa">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="data-layout-selected u-clearfix u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-row">
+              <div class="u-align-left u-container-align-left u-container-style u-layout-cell u-left-cell u-size-15 u-size-60-md u-layout-cell-1">
+                <div class="u-container-layout u-container-layout-1">
+                  <h4 class="u-text u-text-1"> Online Learning Made Simple</h4>
+                  <p class="u-text u-text-2"> Upload your slides, and our platform will generate interactive trivia games tailored to your learning style. Study smarter, not harder, with personalized feedback to help you succeed.</p>
+                  <a href="#" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1" data-animation-name="rollIn" data-animation-duration="1000" data-animation-direction="" data-animation-delay="500">let's go ! </a>
+                </div>
+              </div>
+              <div class="u-align-left u-container-align-left u-container-style u-layout-cell u-size-18-lg u-size-18-xl u-size-21-sm u-size-21-xs u-size-60-md u-layout-cell-2">
+                <div class="u-container-layout u-container-layout-2"><span class="u-icon u-text-palette-3-base u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 95.333 95.332" style=""><use xlink:href="#svg-cbee"></use></svg><svg class="u-svg-content" viewBox="0 0 95.333 95.332" x="0px" y="0px" id="svg-cbee" style=""><g><g><path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793    c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045    s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076    c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002    c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z"></path><path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019    c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23    c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16    c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312    c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z"></path>
+</g>
+</g></svg></span>
+                  <p class="u-text u-text-3"> "Learning from your mistakes is the first step toward mastery."</p>
+                  <p class="u-text u-text-4"> Our system analyzes your performance, identifies areas where you can improve, and creates new trivia games focusing on your weaknesses to help you get better with every session.</p>
+                </div>
+              </div>
+              <div class="u-align-center-sm u-align-center-xs u-container-style u-layout-cell u-right-cell u-size-24-sm u-size-24-xs u-size-27-lg u-size-27-xl u-size-60-md u-layout-cell-3">
+                <div class="u-container-layout u-valign-middle-md u-container-layout-3">
+                  <div class="u-expanded-width u-gradient u-shape u-shape-rectangle u-shape-1"></div>
+                  <img src="{{ url_for('static', filename='images/ggg.jpg') }}" 
+                  alt="" 
+                  class="u-align-left u-image u-image-default u-image-1" 
+                  data-image-width="900" 
+                  data-image-height="946">
+                              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-container-align-center u-grey-5 u-section-8" id="carousel_6405">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-20 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-row">
+              <div class="u-align-center u-container-align-center u-container-style u-layout-cell u-size-38 u-layout-cell-1">
+                <div class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-xl u-container-layout-1">
+                  <div class="u-form u-form-1">
+                    <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" style="padding: 0;" source="email" name="form">
+                      <div class="u-form-email u-form-group u-form-partition-factor-2">
+                        <label for="email-f2a8" class="u-label u-label-1">E-mail</label>
+                        <input type="email" placeholder="Enter a valid email address" id="email-f2a8" name="email" class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                      </div>
+                      <div class="u-form-group u-form-name u-form-partition-factor-2">
+                        <label for="name-f2a8" class="u-label u-label-2">Name</label>
+                        <input type="text" placeholder="Enter your Name" id="name-f2a8" name="name" class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                      </div>
+                      <div class="u-form-group u-form-phone u-form-group-3">
+                        <label for="phone-447e" class="u-label u-label-3">Phone</label>
+                        <input type="tel" pattern="\+?\d{0,2}[\s\(\-]?([0-9]{3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone" id="phone-447e" name="phone" class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                      </div>
+                      <div class="u-form-group u-form-message u-form-group-4">
+                        <label for="message-f2a8" class="u-label u-label-4">Message</label>
+                        <textarea placeholder="Enter your message" rows="4" cols="50" id="message-f2a8" name="message" class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required=""></textarea>
+                      </div>
+                      <div class="u-align-left u-form-group u-form-submit">
+                        <a href="#" class="u-active-palette-1-base u-border-none u-btn u-btn-rectangle u-btn-submit u-button-style u-hover-palette-1-base u-palette-3-base u-text-active-white u-text-hover-white u-text-palette-1-base u-btn-1">Submit</a>
+                        <input type="submit" value="submit" class="u-form-control-hidden">
+                      </div>
+                      <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
+                      <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
+                      <input type="hidden" value="" name="recaptchaResponse">
+                      <input type="hidden" name="formServices" value="79020a0e-757c-65dc-a512-05b7bdb3a7ed">
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="u-container-style u-layout-cell u-size-22 u-white u-layout-cell-2">
+                <div class="u-container-layout u-container-layout-2">
+                  <h3 class="u-custom-font u-font-arial u-text u-text-body-color u-text-1"> Reach Out to Us</h3>
+                  <p class="u-text u-text-default u-text-2"> If you have any questions or need assistance, feel free to contact us using the form below. We’re here to help you make the most of your learning journey.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    
+    <section class="u-backlink u-clearfix u-grey-80">
+      <p class="u-text">
+        <span>This site was created with the </span>
+        <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
+          <span>Nicepage</span>
+        </a>
+      </p>
+    </section>
+  
+</body></html>

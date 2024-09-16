@@ -60,7 +60,7 @@ def generate_questions_from_gpt(extracted_text):
         
         # Call OpenAI's GPT API using the gpt-3.5-turbo model
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are an AI that generates trivia questions."},
                 {"role": "user", "content": prompt}

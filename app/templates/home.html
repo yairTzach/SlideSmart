@@ -1,60 +1,117 @@
-<!DOCTYPE html>
-<html style="font-size: 16px;" lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="Welcome to Quizy">
-    <meta name="description" content="">
-    <title>Home</title>
+  <!DOCTYPE html>
+  <html style="font-size: 16px;" lang="en">
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta charset="utf-8">
+      <meta name="keywords" content="Welcome to Quizy">
+      <meta name="description" content="">
+      <title>Home</title>
 
-    <!-- Use Flask's url_for to reference static files -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" media="screen">
-    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer=""></script>
+      <!-- Use Flask's url_for to reference static files -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" media="screen">
+      <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer=""></script>
+      <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer=""></script>
 
-    <meta name="theme-color" content="#478ac9">
-</head>
-<body class="u-body u-xl-mode" data-lang="en">
-    <!-- Background Image Section -->
-    <section class="u-align-center u-clearfix u-container-align-center u-image u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-section-1" style="background-image: url('{{ url_for('static', filename='images/jh.jpg') }}');" data-image-width="1980" data-image-height="1114">
-      <div class="data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
-        <div class="u-layout">
-          <div class="u-layout-row">
-            
-            <!-- Left Section: Text and PDF Upload -->
-            <div class="u-align-left u-container-style u-layout-cell u-left-cell u-shape-rectangle u-size-20-lg u-size-20-xl u-size-23-md u-size-23-sm u-size-23-xs u-size-xs-60 u-layout-cell-1">
-              <div class="u-container-layout u-container-layout-1">
-                <h1 class="u-text u-text-body-alt-color u-text-1">Welcome to Quizy</h1>
-                <p class="u-text u-text-body-alt-color u-text-2">Upload your lecture slide to generate quiz questions</p>
-                
-                <!-- Form to upload a PDF -->
-                <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/upload">
-                  <label for="pdfFile" class="u-text u-text-body-alt-color u-text-2">Select a PDF file:</label><br>
-                  <input type="file" id="pdfFile" name="pdfFile" accept=".pdf"><br><br>
-                  <input type="submit" value="Upload PDF" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1">
-                </form>
+      <meta name="theme-color" content="#478ac9">
+      <style>
+        .speaker-icon {
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+
+  </head>
+  <body class="u-body u-xl-mode" data-lang="en">
+
+    <img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
+
+    <!-- Background Music -->
+    <audio id="bg-audio" loop>
+        <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      const audioElement = document.getElementById("bg-audio");
+      const speakerIcon = document.getElementById("speaker");
+      
+      // Function to toggle audio play/pause
+      function toggleAudio() {
+          if (audioElement.paused) {
+              audioElement.play();
+              speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";  // Speaker ON image
+          } else {
+              audioElement.pause();
+              speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";  // Speaker OFF image
+          }
+      }
+      
+      // Store the current time of the audio in localStorage before leaving the page
+      window.addEventListener('beforeunload', function () {
+          localStorage.setItem('audioPlaying', !audioElement.paused);
+          localStorage.setItem('audioTime', audioElement.currentTime); // Save the current time
+      });
+      
+      // Restore the audio state and time when the page loads
+      window.addEventListener('DOMContentLoaded', function () {
+          const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
+          const audioTime = localStorage.getItem('audioTime') || 0; // Default to 0 if no time is stored
+          
+          audioElement.currentTime = audioTime; // Set the saved time
+          
+          if (audioPlaying) {
+              audioElement.play();
+              speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
+          } else {
+              audioElement.pause();
+              speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
+          }
+      });
+      
+    </script>
+
+      <!-- Background Image Section -->
+      <section class="u-align-center u-clearfix u-container-align-center u-image u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-section-1" style="background-image: url('{{ url_for('static', filename='images/jh.jpg') }}');" data-image-width="1980" data-image-height="1114">
+        <div class="data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-row">
+              
+              <!-- Left Section: Text and PDF Upload -->
+              <div class="u-align-left u-container-style u-layout-cell u-left-cell u-shape-rectangle u-size-20-lg u-size-20-xl u-size-23-md u-size-23-sm u-size-23-xs u-size-xs-60 u-layout-cell-1">
+                <div class="u-container-layout u-container-layout-1">
+                  <h1 class="u-text u-text-body-alt-color u-text-1">Welcome to Slide Smart</h1>
+                  <p class="u-text u-text-body-alt-color u-text-2">Upload your lecture slide to generate quiz questions</p>
+                  
+                  <!-- Form to upload a PDF -->
+                  <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/upload">
+                    <label for="pdfFile" class="u-text u-text-body-alt-color u-text-2">Select a PDF file:</label><br>
+                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf"><br><br>
+                    <input type="submit" value="START TRIVIA" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1">
+                  </form>
+                </div>
               </div>
-            </div>
-            
-            <!-- Right Section: Foreground Image -->
-            <div class="u-align-center u-container-align-center u-container-style u-image u-layout-cell u-right-cell u-size-37-md u-size-37-sm u-size-37-xs u-size-40-lg u-size-40-xl u-size-xs-60 u-image-1" style="background-image: url('{{ url_for('static', filename='images/5807340-min.png') }}');" data-image-width="1422" data-image-height="900">
-              <div class="u-container-layout u-container-layout-2"></div>
-            </div>
+              
+              <!-- Right Section: Foreground Image -->
+              <div class="u-align-center u-container-align-center u-container-style u-image u-layout-cell u-right-cell u-size-37-md u-size-37-sm u-size-37-xs u-size-40-lg u-size-40-xl u-size-xs-60 u-image-1" style="background-image: url('{{ url_for('static', filename='images/5807340-min.png') }}');" data-image-width="1422" data-image-height="900">
+                <div class="u-container-layout u-container-layout-2"></div>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Footer -->
-    <section class="u-backlink u-clearfix u-grey-80">
-      <p class="u-text">
-        <span>This site was created with the </span>
-        <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
-          <span>Nicepage</span>
-        </a>
-      </p>
-    </section>
-</body>
-</html>
+      <!-- Footer -->
+      <section class="u-backlink u-clearfix u-grey-80">
+        <p class="u-text">
+          <span>a</span>
+        </p>
+      </section>
+  </body>
+  </html>

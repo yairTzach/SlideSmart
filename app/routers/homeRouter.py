@@ -9,9 +9,10 @@ home_router = Blueprint('home_router', __name__)
 # Dictionary to hold processing status
 processing_status = {}
 
-@home_router.route('/')
+@home_router.route('/home')
 def home():
     return render_template('home.html')
+
 
 @home_router.route('/upload', methods=['POST'])
 def upload_file():
