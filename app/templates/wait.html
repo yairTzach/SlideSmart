@@ -12,8 +12,67 @@
     <script class="u-script" type="text/javascript" src="../static/js/nicepage.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="../static/js/wait.js" defer=""></script>
     <meta name="theme-color" content="#478ac9">
+    <style>
+      .speaker-icon {
+          cursor: pointer;
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          z-index: 9999;
+          width: 40px;
+          height: 40px;
+      }
+  </style>
+
 </head>
 <body class="u-body u-xl-mode" data-lang="en">
+  <img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
+
+  <!-- Background Music -->
+  <audio id="bg-audio" loop>
+      <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const audioElement = document.getElementById("bg-audio");
+    const speakerIcon = document.getElementById("speaker");
+    
+    // Function to toggle audio play/pause
+    function toggleAudio() {
+        if (audioElement.paused) {
+            audioElement.play();
+            speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";  // Speaker ON image
+        } else {
+            audioElement.pause();
+            speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";  // Speaker OFF image
+        }
+    }
+    
+    // Store the current time of the audio in localStorage before leaving the page
+    window.addEventListener('beforeunload', function () {
+        localStorage.setItem('audioPlaying', !audioElement.paused);
+        localStorage.setItem('audioTime', audioElement.currentTime); // Save the current time
+    });
+    
+    // Restore the audio state and time when the page loads
+    window.addEventListener('DOMContentLoaded', function () {
+        const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
+        const audioTime = localStorage.getItem('audioTime') || 0; // Default to 0 if no time is stored
+        
+        audioElement.currentTime = audioTime; // Set the saved time
+        
+        if (audioPlaying) {
+            audioElement.play();
+            speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
+        } else {
+            audioElement.pause();
+            speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
+        }
+    });
+    
+  </script>
+
     <section class="u-align-center u-clearfix u-image u-shading u-section-1">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <h6 class="u-align-center u-text u-text-1"> Thank you for uploading your PDF file </h6>
