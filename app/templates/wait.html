@@ -1,39 +1,105 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="en">
 <head>
+    <!-- Meta tags and CSS includes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="please wait while we work on your game">
     <meta name="description" content="">
     <title>Wait</title>
-    <link rel="stylesheet" href="../static/css/nicepage.css" media="screen">
-    <link rel="stylesheet" href="../static/css/wait.css" media="screen">
-    <script class="u-script" type="text/javascript" src="../static/js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="../static/js/nicepage.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="../static/js/wait.js" defer=""></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/wait.css') }}" media="screen">
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/wait.js') }}" defer=""></script>
     <meta name="theme-color" content="#478ac9">
     <style>
       .speaker-icon {
           cursor: pointer;
           position: fixed;
           top: 20px;
-          left: 20px;
+          right: 20px;
           z-index: 9999;
           width: 40px;
           height: 40px;
       }
-  </style>
-
+    </style>
 </head>
 <body class="u-body u-xl-mode" data-lang="en">
-  <img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
+  <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
+    <div class="menu-collapse" style="font-size: 1.125rem;">
+      <a class="u-button-style u-custom-effect-duration u-nav-link" href="#">
+        <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#svg-8303"></use></svg>
+        <svg class="u-svg-content" version="1.1" id="svg-8303" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+      </a>
+    </div>
+    <div class="u-custom-menu u-nav-container">
+      <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="./" style="padding: 19px 27px;">Logout</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-1.html" style="padding: 19px 27px;">Feedbacks</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-2.html" style="padding: 19px 27px;">Profile</a>
+</li></ul>
+    </div>
+    <div class="u-custom-menu u-nav-container-collapse">
+      <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+        <div class="u-inner-container-layout u-sidenav-overflow">
+          <div class="u-menu-close"></div>
+          <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="./">1-30</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-1.html">Page 1</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-2.html">Page 2</a>
+</li></ul>
+        </div>
+      </div>
+      <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+    </div>
+  </nav>
+  <style>
+    body {
+      background-image: linear-gradient(0deg, rgba(66,84,101,0.2), rgba(66,84,101,0.2)), url('{{ url_for('static', filename='images/jh.jpg') }}');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+  }
+  /* Align the menu to the right */
+.u-menu {
+width: 100%;
+}
 
-  <!-- Background Music -->
+.u-nav {
+display: flex;
+justify-content: flex-start; /* Align items to the left */
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+/* Optional: Remove default link styling */
+.u-nav .u-nav-link {
+text-decoration: none;
+color: inherit;
+padding: 19px 27px;
+}
+.u-menu-1 {
+  position: relative;
+  top: 0;
+  left: 0; /* Ensure left is set to 0 */
+}
+
+/* Ensure the menu is positioned correctly */
+
+
+  </style>
+
+  <!-- Speaker Icon and Background Music -->
+  <img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
   <audio id="bg-audio" loop>
       <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
       Your browser does not support the audio element.
   </audio>
 
+  <!-- Audio Control Script -->
   <script>
     const audioElement = document.getElementById("bg-audio");
     const speakerIcon = document.getElementById("speaker");
@@ -70,26 +136,26 @@
             speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
         }
     });
-    
   </script>
 
-    <section class="u-align-center u-clearfix u-image u-shading u-section-1">
-      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <h6 class="u-align-center u-text u-text-1"> Thank you for uploading your PDF file </h6>
-        <h1 class="u-align-center u-text u-text-default u-title u-text-2">Please wait while we are working on your game<br>
-        </h1>
-        <!-- Disable the button initially -->
-        <a href="/questions" id="startButton" class="u-align-center u-btn u-button-style u-palette-2-base u-btn-1" style="pointer-events: none; opacity: 0.5;">Start</a>
-      </div>
-    </section>
+  <!-- Main Content Section -->
+  <section class="u-align-center u-clearfix u-image u-shading u-section-1">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <h6 class="u-align-center u-text u-text-1"> Thank you for uploading your PDF file </h6>
+      <h1 class="u-align-center u-text u-text-default u-title u-text-2">Please wait while we are working on your game</h1>
+      <!-- Disable the button initially -->
+      <a href="#" id="startButton" class="u-align-center u-btn u-button-style u-palette-2-base u-btn-1" style="pointer-events: none; opacity: 0.5;">Start</a>
+    </div>
+  </section>
 
-    <section class="u-backlink u-clearfix u-grey-80">
-      <p class="u-text">
-        <span>This site was created with the </span>
-        <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
-          <span>Nicepage</span>
-        </a>
-      </p>
-    </section>
+  <!-- Footer -->
+  <section class="u-backlink u-clearfix u-grey-80">
+    <p class="u-text">
+      <span>This site was created with the </span>
+      <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
+        <span>Nicepage</span>
+      </a>
+    </p>
+  </section>
 </body>
 </html>

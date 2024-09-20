@@ -1,6 +1,15 @@
  .u-section-1 {
   background-image: linear-gradient(#f9e79b, #72efe9);
 }
+body {
+  background-image: linear-gradient(#f9e79b, #72efe9);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+}
+
 
 .u-section-1 .u-sheet-1 {
   min-height: 881px;
