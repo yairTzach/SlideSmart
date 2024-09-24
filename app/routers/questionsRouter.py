@@ -1,4 +1,5 @@
-# questionsRouter.py
+# routers/questionsRouter.py
+
 from flask import Blueprint, request, render_template, current_app, redirect, url_for, session
 import os
 import re
@@ -7,13 +8,17 @@ questions_router = Blueprint('questions_router', __name__)
 
 @questions_router.route('/questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
 def questions(filename, question_number):
-    # Initialize session variables for each level if not present
+    # [Your existing question handling code]
+    # Initialize session variables
     if 'current_topic_score' not in session:
         session['current_topic_score'] = 0
         session['current_streak'] = 0
         session['current_level'] = 'easy'  # Levels: easy, medium, hard
-        session['question_count'] = 0  # Total number of questions answered
+        session['question_count'] = 0  # Total number of questions answered in current topic
         session['current_topic_index'] = 0  # Track current topic index
+        session['topics_scores'] = []  # List to store scores for each topic
+        session['wrong_answers'] = []  # List to store details of wrong answers
+        session['total_questions_answered'] = 0  # Total questions answered across all topics
 
     # Separate question counters for each difficulty level (do not reset across levels)
     if 'easy_question_number' not in session:
@@ -39,8 +44,8 @@ def questions(filename, question_number):
     # Get the current topic based on the session
     current_topic_index = session.get('current_topic_index', 0)
     if current_topic_index >= len(questions_data):
-        # If all topics are finished, you can show a final result or end the trivia here
-        return "You've completed all topics!", 200
+        # If all topics are finished, redirect to summary
+        return redirect(url_for('summary_router.summary', filename=filename))
 
     current_topic = questions_data[current_topic_index]
     current_topic_name = current_topic['topic_title']  # Get the current topic's name
@@ -69,19 +74,32 @@ def questions(filename, question_number):
         # Capture the level being answered before any changes
         previous_level = current_level
 
-        # Check if answer is correct and adjust score
+        # Define the correct answer
         correct_answer = 'a'  # Assuming the correct answer is always 'a'
+
         if selected_option == correct_answer:
             session['current_topic_score'] += get_score_increment(previous_level)
             session['current_streak'] += 1
             # Update level based on streak
             session['current_level'], session['current_streak'] = update_level(previous_level, session['current_streak'])
         else:
+            # Record the wrong answer details
+            wrong_answer_detail = {
+                'topic_name': current_topic_name,
+                'question': current_question['question'],
+                'options': current_question['options'],
+                'correct_answer': correct_answer,
+                'selected_option': selected_option
+            }
+            session['wrong_answers'].append(wrong_answer_detail)
+
+            # Reset streak and demote level
             session['current_streak'] = 0
             session['current_level'] = demote_level(previous_level)
 
-        # Increment total question count
+        # Increment total question counts
         session['question_count'] += 1
+        session['total_questions_answered'] += 1
 
         # Increment the question number for the level that was just answered
         if previous_level == 'easy':
@@ -91,8 +109,14 @@ def questions(filename, question_number):
         else:
             session['hard_question_number'] += 1
 
-        # If 6 questions have been answered in this topic, move to the next topic
+        # Check if 6 questions have been answered in this topic
         if session['question_count'] >= 6:
+            # Save the current topic's score
+            session['topics_scores'].append({
+                'topic_name': current_topic_name,
+                'score': session['current_topic_score']
+            })
+
             # Reset for the next topic
             session['current_topic_index'] += 1  # Move to the next topic
             session['current_level'] = 'easy'
@@ -102,8 +126,20 @@ def questions(filename, question_number):
             session['hard_question_number'] = 1
             session['current_topic_score'] = 0
 
+            # Check if all topics have been completed (assuming 5 topics)
+            if session['current_topic_index'] >= 5:
+                return redirect(url_for('summary_router.summary', filename=filename))
 
             return redirect(url_for('questions_router.questions', filename=filename, question_number=1))
+
+        # Check if total questions answered have reached 30
+        if session['total_questions_answered'] >= 30:
+            # Save the current topic's score before redirecting
+            session['topics_scores'].append({
+                'topic_name': current_topic_name,
+                'score': session['current_topic_score']
+            })
+            return redirect(url_for('summary_router.summary', filename=filename))
 
         # Redirect to the next question within the current topic
         return redirect(url_for('questions_router.questions', filename=filename, question_number=question_number + 1))

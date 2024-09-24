@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}Game Summary{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Background image for the entire page */
+    body {
+        background-image: url("{{ url_for('static', filename='images/jh.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #fff;
+    }
+    
+    /* Content Wrapper Styles */
+    .content-wrapper {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 60px;
+        border-radius: 15px;
+        margin: 60px auto;
+        max-width: 1200px;
+    }
+    
+    /* Style Headings */
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    /* Style the accordion buttons */
+    .accordion-button, .accordion-button:not(.collapsed) {
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.4);
+        border: none;
+        font-size: 1.5rem;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: none;
+    }
+    
+    /* Remove borders from accordion items */
+    .accordion-item {
+        background-color: transparent;
+        border: none;
+    }
+    
+    /* Style the accordion body */
+    .accordion-body {
+        background-color: rgba(0, 0, 0, 0.5);
+        font-size: 1.2rem;
+        line-height: 1.6;
+        padding: 30px;
+        border-radius: 10px;
+        color: #fff;  /* Added this line */
+    }
+    
+    /* Question Card Styles */
+    .question-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    
+    .question-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    /* Options List Styling */
+    .options-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .options-list li {
+        padding: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .options-list li:last-child {
+        border-bottom: none;
+    }
+    
+    /* Correct and Incorrect Answer Styles */
+    .correct-answer {
+        background-color: rgba(40, 167, 69, 0.2);
+    }
+    
+    .incorrect-answer {
+        background-color: rgba(220, 53, 69, 0.2);
+    }
+    
+    /* Icons for Correct and Incorrect Answers */
+    .answer-icon {
+        margin-right: 10px;
+    }
+    
+    .correct-icon {
+        color: #28a745;
+    }
+    
+    .incorrect-icon {
+        color: #dc3545;
+    }
+    
+    /* Style the Play Again button */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1.5rem;
+        padding: 0.75em 2em;
+    }
+    
+    .btn-primary i {
+        margin-right: 0.5em;
+    }
+    
+    /* Adjust paragraph text */
+    p {
+        font-size: 1.2rem;
+    }
+    
+    /* Ensure text colors are visible */
+    .text-success, .text-danger {
+        color: #fff !important;
+    }
+    </style>
+    
+<div class="content-wrapper">
+    <h1>Game Summary</h1>
+
+    <!-- Topics Won Section -->
+    <div class="section mb-5">
+        <h2>Subjects Won <span class="badge bg-success">Score ≥ 75</span></h2>
+        {% if topics_won %}
+            <div class="accordion" id="accordionWon">
+                {% for topic in topics_won %}
+                    <div class="accordion-item u-option-item">
+                        <h2 class="accordion-header" id="headingWon{{ loop.index }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWon{{ loop.index }}" aria-expanded="false" aria-controls="collapseWon{{ loop.index }}">
+                                {{ topic.topic_name }} - Score: {{ topic.score }}
+                            </button>
+                        </h2>
+                        <div id="collapseWon{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="headingWon{{ loop.index }}" data-bs-parent="#accordionWon">
+                            <div class="accordion-body">
+                                {% if wrong_answers.get(topic.topic_name) %}
+                                    {% for wrong in wrong_answers[topic.topic_name] %}
+                                        <div class="question-card">
+                                            <h3>{{ wrong.question }}</h3>
+                                            <ul class="options-list">
+                                                {% for option in wrong.options %}
+                                                    <li class="
+                                                        {% if option.label == wrong.correct_answer %}
+                                                            correct-answer
+                                                        {% elif option.label == wrong.selected_option %}
+                                                            incorrect-answer
+                                                        {% endif %}
+                                                    ">
+                                                        {% if option.label == wrong.correct_answer %}
+                                                            <i class="bi bi-check-circle-fill answer-icon correct-icon"></i>
+                                                        {% elif option.label == wrong.selected_option %}
+                                                            <i class="bi bi-x-circle-fill answer-icon incorrect-icon"></i>
+                                                        {% else %}
+                                                            <span class="answer-icon"></span>
+                                                        {% endif %}
+                                                        <strong>{{ option.label }})</strong> {{ option.text }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-success">You got all answers correct in this topic!</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-success">No subjects won.</p>
+        {% endif %}
+    </div>
+
+    <!-- Topics Lost Section -->
+    <div class="section mb-5">
+        <h2>Subjects Lost <span class="badge bg-danger">Score &lt; 75</span></h2>
+        {% if topics_lost %}
+            <div class="accordion" id="accordionLost">
+                {% for topic in topics_lost %}
+                    <div class="accordion-item u-option-item">
+                        <h2 class="accordion-header" id="headingLost{{ loop.index }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLost{{ loop.index }}" aria-expanded="false" aria-controls="collapseLost{{ loop.index }}">
+                                {{ topic.topic_name }} - Score: {{ topic.score }}
+                            </button>
+                        </h2>
+                        <div id="collapseLost{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="headingLost{{ loop.index }}" data-bs-parent="#accordionLost">
+                            <div class="accordion-body">
+                                {% if wrong_answers.get(topic.topic_name) %}
+                                    {% for wrong in wrong_answers[topic.topic_name] %}
+                                        <div class="question-card">
+                                            <h3>{{ wrong.question }}</h3>
+                                            <ul class="options-list">
+                                                {% for option in wrong.options %}
+                                                    <li class="
+                                                        {% if option.label == wrong.correct_answer %}
+                                                            correct-answer
+                                                        {% elif option.label == wrong.selected_option %}
+                                                            incorrect-answer
+                                                        {% endif %}
+                                                    ">
+                                                        {% if option.label == wrong.correct_answer %}
+                                                            <i class="bi bi-check-circle-fill answer-icon correct-icon"></i>
+                                                        {% elif option.label == wrong.selected_option %}
+                                                            <i class="bi bi-x-circle-fill answer-icon incorrect-icon"></i>
+                                                        {% else %}
+                                                            <span class="answer-icon"></span>
+                                                        {% endif %}
+                                                        <strong>{{ option.label }})</strong> {{ option.text }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <p>
+                                                <strong>Correct Answer:</strong> {{ wrong.correct_answer }}) 
+                                                {% for option in wrong.options %}
+                                                    {% if option.label == wrong.correct_answer %}
+                                                        {{ option.text }}
+                                                    {% endif %}
+                                                {% endfor %}<br>
+                                                <strong>Your Answer:</strong> {{ wrong.selected_option }}) 
+                                                {% for option in wrong.options %}
+                                                    {% if option.label == wrong.selected_option %}
+                                                        {{ option.text }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-danger">You had no wrong answers in this topic, but didn’t score enough to win.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-danger">No subjects lost.</p>
+        {% endif %}
+    </div>
+
+    <!-- Play Again Button -->
+    <div class="text-center">
+        <a href="{{ url_for('questions_router.questions', filename=filename, question_number=1) }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-arrow-counterclockwise"></i> Play Again
+        </a>
+    </div>
+</div>
+
+{% endblock %}
