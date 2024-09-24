@@ -6,10 +6,27 @@ import re
 questions_router = Blueprint('questions_router', __name__)
 
 @questions_router.route('/questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
+@questions_router.route('/questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
 def questions(filename, question_number):
+    # Initialize session variables for each level if not present
+    if 'current_topic_score' not in session:
+        session['current_topic_score'] = 0
+        session['current_streak'] = 0
+        session['current_level'] = 'easy'  # Levels: easy, medium, hard
+        session['question_count'] = 0  # Total number of questions answered
+
+    # Separate question counters for each difficulty level (do not reset across levels)
+    if 'easy_question_number' not in session:
+        session['easy_question_number'] = 1
+    if 'medium_question_number' not in session:
+        session['medium_question_number'] = 1
+    if 'hard_question_number' not in session:
+        session['hard_question_number'] = 1
+
     questions_folder = current_app.config['QUESTIONS_FOLDER']
     txt_filename = f"{filename}.txt"
     txt_path = os.path.join(questions_folder, txt_filename)
+
     if not os.path.exists(txt_path):
         return "Questions file not found", 404
 
@@ -19,103 +36,90 @@ def questions(filename, question_number):
 
     questions_data = parse_questions(content)
 
-    # Flatten all questions into a single list for easy indexing
-    all_questions = []
-    for topic_index, topic in enumerate(questions_data):
-        for question_index, question in enumerate(topic['questions']):
-            all_questions.append({
-                'topic_index': topic_index,
-                'question_index': question_index,
-                'topic_title': topic['topic_title'],
-                'question': question
-            })
+    # Flatten questions based on difficulty
+    difficulty_levels = {'easy': [], 'medium': [], 'hard': []}
+    for topic in questions_data:
+        for question in topic['questions']:
+            difficulty_levels[question['difficulty']].append(question)
 
-    total_questions = len(all_questions)
+    # Get the question number for the current difficulty level
+    if session['current_level'] == 'easy':
+        current_question_number = session['easy_question_number']
+    elif session['current_level'] == 'medium':
+        current_question_number = session['medium_question_number']
+    else:
+        current_question_number = session['hard_question_number']
 
     if request.method == 'POST':
-        # Handle form submission
         selected_option = request.form.get('option')
-        # Store the answer in the session
-        user_answers = session.get('user_answers', {})
-        current_question = all_questions[question_number - 1]
-        key = f"{current_question['topic_index']}_{current_question['question_index']}"
-        user_answers[key] = selected_option
-        session['user_answers'] = user_answers
+        current_question = difficulty_levels[session['current_level']][current_question_number - 1]
 
-        if 'next' in request.form:
-            if question_number < total_questions:
-                return redirect(url_for('questions_router.questions', filename=filename, question_number=question_number + 1))
-            else:
-                # End of questions, show results
-                return redirect(url_for('questions_router.results', filename=filename))
-        elif 'previous' in request.form:
-            if question_number > 1:
-                return redirect(url_for('questions_router.questions', filename=filename, question_number=question_number - 1))
-            else:
-                # Already at the first question
-                return redirect(url_for('questions_router.questions', filename=filename, question_number=1))
+        # Check if answer is correct
+        correct_answer = 'a'  # Assuming the correct answer is always 'a'
+        if selected_option == correct_answer:
+            # Increase score based on current difficulty
+            if session['current_level'] == 'easy':
+                session['current_topic_score'] += 10
+                session['current_streak'] += 1
+                if session['current_streak'] >= 1:
+                    session['current_level'] = 'medium'  # Move to medium after 1 correct in easy
+                    session['current_streak'] = 0
+                print("Easy question correct, score is now:", session['current_topic_score'])
 
+            elif session['current_level'] == 'medium':
+                session['current_topic_score'] += 25
+                session['current_streak'] += 1
+                if session['current_streak'] >= 2:
+                    session['current_level'] = 'hard'  # Move to hard after 2 correct in medium
+                    session['current_streak'] = 0
+                print("Medium question correct, score is now:", session['current_topic_score'])
+
+            elif session['current_level'] == 'hard':
+                session['current_topic_score'] += 40
+                session['current_streak'] += 1
+                print("Hard question correct, score is now:", session['current_topic_score'])
+        else:
+            # Reset streak and adjust difficulty if incorrect
+            session['current_streak'] = 0
+            if session['current_level'] == 'hard':
+                session['current_level'] = 'medium'
+            elif session['current_level'] == 'medium':
+                session['current_level'] = 'easy'
+
+        # Increment total question count (for all levels)
+        session['question_count'] += 1
+
+        # Check if the user won after 6 questions
+        if session['question_count'] >= 6:
+            if session['current_topic_score'] >= 75:
+                return redirect(url_for('questions_router.results', filename=filename, result='won'))
+            else:
+                return redirect(url_for('questions_router.results', filename=filename, result='lost'))
+        
+        # Redirect to the next question without incrementing the question number yet
+        return redirect(url_for('questions_router.questions', filename=filename, question_number=question_number + 1))
+
+    # Render question page with current question and difficulty level
+    current_question = difficulty_levels[session['current_level']][current_question_number - 1]
+    
+    # After rendering the question, increment the question counter for the correct level
+    if session['current_level'] == 'easy':
+        session_question_number = session['easy_question_number']
+        session['easy_question_number'] += 1  # Increment only after rendering
+    elif session['current_level'] == 'medium':
+        session_question_number = session['medium_question_number']
+        session['medium_question_number'] += 1  # Increment only after rendering
     else:
-        # GET request
-        if question_number < 1 or question_number > total_questions:
-            return "Invalid question number", 404
+        session_question_number = session['hard_question_number']
+        session['hard_question_number'] += 1  # Increment only after rendering
 
-        current_question = all_questions[question_number - 1]
-        # Retrieve user's previous answer if any
-        user_answers = session.get('user_answers', {})
-        key = f"{current_question['topic_index']}_{current_question['question_index']}"
-        selected_option = user_answers.get(key, None)
-
-        return render_template(
-            'questions.html',
-            filename=filename,
-            question_number=question_number,
-            total_questions=total_questions,
-            question_data=current_question,
-            selected_option=selected_option
-        )
-
-@questions_router.route('/results/<filename>')
-def results(filename):
-    # Load questions data as before
-    questions_folder = current_app.config['QUESTIONS_FOLDER']
-    txt_filename = f"{filename}.txt"
-    txt_path = os.path.join(questions_folder, txt_filename)
-    if not os.path.exists(txt_path):
-        return "Questions file not found", 404
-
-    # Read and parse the questions
-    with open(txt_path, 'r') as f:
-        content = f.read()
-
-    questions_data = parse_questions(content)
-
-    # Flatten all questions into a single list for easy indexing
-    all_questions = []
-    for topic_index, topic in enumerate(questions_data):
-        for question_index, question in enumerate(topic['questions']):
-            all_questions.append({
-                'topic_index': topic_index,
-                'question_index': question_index,
-                'topic_title': topic['topic_title'],
-                'question': question
-            })
-
-    total_questions = len(all_questions)
-    correct_answers = 0
-    user_answers = session.get('user_answers', {})
-
-    for item in all_questions:
-        key = f"{item['topic_index']}_{item['question_index']}"
-        user_answer = user_answers.get(key, '')
-        # Correct answer is always 'a' as per the prompt
-        if user_answer == 'a':
-            correct_answers += 1
-
-    # Clear user answers from session
-    session.pop('user_answers', None)
-
-    return render_template('results.html', total_questions=total_questions, correct_answers=correct_answers)
+    return render_template(
+        'questions.html',
+        filename=filename,
+        question_number=session_question_number,  # Use the session-based question number
+        total_questions=6,  # Fixed or dynamically calculated number of questions
+        question_data=current_question
+    )
 
 def parse_questions(content):
     import re
@@ -143,7 +147,7 @@ def parse_questions(content):
             # Check for difficulty level
             difficulty_match = re.match(r'\*\*(.*?)\*\*', line)
             if difficulty_match and 'Questions' in difficulty_match.group(1):
-                current_difficulty = difficulty_match.group(1).replace('Questions:', '').strip()
+                current_difficulty = difficulty_match.group(1).replace('Questions:', '').strip().lower()  # Convert to lowercase
                 i += 1
                 continue
 
