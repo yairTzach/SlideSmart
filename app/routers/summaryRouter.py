@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, redirect, url_for, session
 summary_router = Blueprint('summary_router', __name__)
 
 @summary_router.route('/questions/<filename>/summary', methods=['GET'])
+@summary_router.route('/questions/<filename>/summary', methods=['GET'])
 def summary(filename):
     if 'topics_scores' not in session or 'wrong_answers' not in session:
         return redirect(url_for('questions_router.questions', filename=filename, question_number=1))
@@ -30,12 +31,13 @@ def summary(filename):
             wrong_answers_by_topic[topic] = []
         wrong_answers_by_topic[topic].append(wrong)
 
-    # Clear the session if you want to reset the game after summary
-    # session.clear()
+    # Clear session when the "Play Again" button is clicked
+    session.clear()
 
     return render_template(
         'summary.html',
         topics_won=topics_won,
         topics_lost=topics_lost,
-        wrong_answers=wrong_answers_by_topic
+        wrong_answers=wrong_answers_by_topic,
+        filename=filename
     )

@@ -40,7 +40,7 @@ def generate_questions_from_gpt(extracted_text):
     try:
         # Create the GPT prompt
         prompt = f"""
-        Please generate a set of trivia questions based on the provided text. I WANT 5 TOPICS. For each topic identified, create a total of 15 questions, categorized into three difficulty levels: easy, medium, and hard. Each category should contain 5 questions.
+        Please generate a set of trivia questions based on the provided text. I WANT 5 TOPICS. For each topic identified, create a total of 18 questions, categorized into three difficulty levels: easy, medium, and hard. Each category should contain 6 questions.
         Please format the questions with multiple-choice answers, ensuring that the first option is always the correct answer. The structure should be as follows:
 
         **Topic 1:**
