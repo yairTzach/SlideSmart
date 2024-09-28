@@ -1,0 +1,11 @@
+.summary-section {
+    background-image: url("../images/jh.jpg");
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}

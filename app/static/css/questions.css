@@ -11,28 +11,69 @@
   justify-content: center; /* Horizontally center content */
   padding: 20px; /* Add padding to prevent content from touching edges */
   box-sizing: border-box;
+  position: relative; /* For positioning child elements */
 }
 
 .u-sheet-1 {
   width: 100%;
   max-width: 800px; /* Limit the maximum width for better readability */
   margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Adjust the font size of the page title */
 .u-text-0 {
   font-size: 2.5rem;
-  margin-bottom: 50px; /* Increased space below header */
-  color: #ffffff; /* Set title color to white for contrast */
-  text-shadow: 1px 1px 2px #000; /* Add text shadow for readability */
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px #000;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
+}
+
+/* Score and Timer container */
+.u-score-timer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Score styling */
+.u-score, .u-timer {
+  display: flex;
+  align-items: center;
+}
+
+.score-icon, .timer-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.score-text, .timer-text {
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px #000;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
+  margin-left: 10px;
 }
 
 /* Adjust the font size of the question */
-.u-text-1 {
-  font-size: 2rem; /* Increase font size of the question */
-  margin-bottom: 40px;
-  color: #ffffff; /* Set question color to white for contrast */
-  text-shadow: 1px 1px 2px #000; /* Add text shadow for readability */
+.u-text-2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px #000;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
+}
+
+/* Options Container */
+.u-options-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 100px; /* Space for navigation buttons */
 }
 
 /* Style the options container to display in two columns */
@@ -68,6 +109,7 @@
   text-align: center;
   color: #333333; /* Dark text color for contrast */
   transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
 }
 
 /* Hover effect for options */
@@ -78,36 +120,36 @@
 
 /* Selected option styling */
 .u-radio-input:checked + .u-option-text {
-  background-color: #478ac9; /* Highlight color */
+  background-color: #ffcc00; /* Highlight color */
   color: #ffffff;
-}
-
-/* Adjust spacing between options */
-.u-option-item {
-  margin-bottom: 20px;
 }
 
 /* Navigation buttons styling */
 .u-navigation-buttons {
-  margin-top: 40px; /* Increased space above buttons */
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 30px; /* Space between buttons */
+  z-index: 100;
 }
 
 .u-navigation-buttons .u-btn {
   padding: 15px 30px; /* Increased padding for larger buttons */
   font-size: 1.2rem; /* Increased font size */
-  background-color: #478ac9; /* Button background color */
+  background-color: #ff6666; /* Button background color */
   color: #ffffff; /* Button text color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
 }
 
 .u-navigation-buttons .u-btn:hover {
-  background-color: #356ca5; /* Darker shade on hover */
+  background-color: #ff4d4d; /* Darker shade on hover */
   transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
@@ -122,7 +164,7 @@
     font-size: 2rem;
   }
 
-  .u-text-1 {
+  .u-text-1, .u-text-2 {
     font-size: 1.8rem;
   }
 
@@ -138,5 +180,6 @@
   .u-navigation-buttons {
     flex-direction: column;
     gap: 15px;
+    bottom: 0;
   }
 }

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="en">
 <head>
-   <!-- <pre>{{ question_data | safe }}</pre> -->
-
     <!-- Meta tags and CSS includes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -12,60 +10,112 @@
     <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer=""></script>
     <meta name="generator" content="Nicepage 6.16.5, nicepage.com">
-    <!-- Additional meta tags and links -->
 </head>
 <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
-    <h1> {{ topic_name }}</h1>
-    <h2>Score: {{ topic_score }}</h2>
-
-    
-
-    <!-- Question Section -->
     <section class="u-align-center u-clearfix u-container-align-center u-image u-section-1">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-            <!-- Page Title (Optional) -->
-            <h1 class="u-text u-text-default u-title u-text-0">Trivia Game</h1>
+            <!-- Page Title -->
+            <h1 class="u-text u-text-default u-title u-text-0">{{ topic_name }}</h1>
+
+            <!-- Score and Timer -->
+            <div class="u-score-timer">
+                <div class="u-score">
+                    <img class="score-icon "src="{{ url_for('static', filename='images/star.png') }}" alt="Score">
+                    <span class="score-text">{{ topic_score }}</span>
+                </div>
+                <div class="u-timer">
+                    <img class="timer-icon" src="{{ url_for('static', filename='images/clock.png') }}" alt="Time Left">
+                    <span class="timer-text" id="timer">30</span>
+                </div>
+            </div>
+
             <!-- Display the question -->
-            <h2 class="u-align-center u-text u-text-default u-text-1">{{ question_data.question }}</h2>
+            <h2 class="u-align-center u-text u-text-default u-text-2">{{ question_data.question }}</h2>
+
             <!-- Options Form -->
-            <form method="post" action="{{ url_for('questions_router.questions', filename=filename, question_number=question_number) }}">
-                <div class="u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-list u-list-1">
-                    <div class="u-repeater u-repeater-1">
-                        {% for option in question_data.options %}
-                        <div class="u-container-align-center u-container-style u-list-item u-radius-15 u-repeater-item u-shape-round u-white u-option-item">
-                            <div class="u-container-layout u-similar-container u-valign-middle">
-                                <label class="u-label u-option-label">
-                                    <input type="radio" name="option" value="{{ option.label }}" {% if selected_option == option.label %}checked{% endif %} class="u-radio-input">
-                                    <span class="u-custom-item u-option-text">{{ option.label }}) {{ option.text }}</span>
-                                </label>
+            <form id="question-form" method="post" action="{{ url_for('questions_router.questions', filename=filename, question_number=question_number) }}" class="u-form">
+                <!-- Hidden field to store the correct answer -->
+                <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
+
+                <!-- Display the shuffled options to the user without the letter -->
+                <div class="u-options-container">
+                    <div class="u-list u-list-1">
+                        <div class="u-repeater u-repeater-1">
+                            {% for option in question_data.options %}
+                            <div class="u-container-align-center u-container-style u-list-item u-radius-15 u-repeater-item u-shape-round u-white u-option-item">
+                                <div class="u-container-layout u-similar-container u-valign-middle">
+                                    <label class="u-label u-option-label">
+                                        <input type="radio" name="option" value="{{ option.text }}" {% if selected_option == option.text %}checked{% endif %} class="u-radio-input">
+                                        <span class="u-custom-item u-option-text">{{ option.text }}</span>
+                                    </label>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                        
                     </div>
                 </div>
+
                 <!-- Navigation Buttons -->
                 <div class="u-align-center u-form-group u-form-submit u-navigation-buttons">
-                    {% if question_number > 1 %}
-                    <button type="submit" name="previous" class="u-btn u-button-style u-btn-1">Previous</button>
-                    {% endif %}
                     {% if question_number < total_questions %}
                     <button type="submit" name="next" class="u-btn u-button-style u-btn-1">Next</button>
+                    {% elif not is_last_topic %}
+                        <button type="submit" name="next" class="u-btn u-button-style u-btn-1">Next topic</button>
                     {% else %}
-                    <button type="submit" name="next" class="u-btn u-button-style u-btn-1">Finish</button>
+                        <button type="submit" name="next" class="u-btn u-button-style u-btn-1">Finish the trivia</button>
                     {% endif %}
                 </div>
             </form>
         </div>
     </section>
-    <!-- Footer (if any) -->
-    <section class="u-backlink u-clearfix u-grey-80">
-        <p class="u-text">
-            <span></span>
-            <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
-                <span>Nicepage</span>
-            </a>
-        </p>
-    </section>
+
+    <!-- Timer Script -->
+    <script>
+        const form = document.getElementById('question-form');
+        const timerElement = document.getElementById('timer');
+        const MAX_TIME = 30; // Maximum time per question
+
+        // Check if the start time exists in localStorage, otherwise set it to the current time
+        let startTime = localStorage.getItem('startTime');
+        if (!startTime) {
+            startTime = Date.now();
+            localStorage.setItem('startTime', startTime);
+        }
+
+        // Calculate time left by subtracting elapsed time from MAX_TIME
+        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        let timeLeft = MAX_TIME - elapsedTime;
+
+        // Function to submit the form and clear localStorage
+        const submitForm = () => {
+            clearInterval(timer); // Ensure the interval is cleared
+            localStorage.removeItem('startTime'); // Clear the start time in localStorage
+            form.submit(); // Submit the form
+        };
+
+        if (timeLeft <= 0) {
+            // Time has already run out, auto-submit the form
+            submitForm();
+        } else {
+            // Set the initial time left immediately upon page load
+            timerElement.textContent = timeLeft;
+
+            // Update timer element every second
+            const timer = setInterval(() => {
+                if (timeLeft <= 0) {
+                    submitForm();
+                } else {
+                    timerElement.textContent = timeLeft;
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+
+        // Clear start time from localStorage after submitting the form to reset the timer for the next question
+        form.addEventListener('submit', () => {
+            clearInterval(timer); // Ensure the interval is cleared when submitting
+            localStorage.removeItem('startTime');
+        });
+    </script>
 </body>
 </html>
