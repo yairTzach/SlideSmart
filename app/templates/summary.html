@@ -4,27 +4,28 @@
 
 {% block content %}
 <!-- Link CSS Files -->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/summary.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 
 <!-- Navigation Bar -->
-<div class="nav-bar">
-    <div class="logo">
-        <a href="{{ url_for('home_router.home') }}">
-            <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
-        </a>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="logo">
+            <a href="{{ url_for('home_router.home') }}">
+                <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
+            </a>
+        </div>
+        <a href="{{ url_for('logout_router.logout') }}">Logout</a>
+        <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+        <a href="{{ url_for('home_router.home') }}">Home</a>
     </div>
-    <a href="{{ url_for('logout_router.logout') }}">Logout</a>
-    <a href="{{ url_for('profile_router.profile') }}">Profile</a>
-    <a href="{{ url_for('home_router.home') }}">Home</a>
-</div>
 
 <div class="content-wrapper">
     <h1>Game Summary</h1>
 
     <!-- Topics Won Section -->
     <div class="section mb-5">
-        <h2>Topics I am good at <span class="badge bg-success">Score ≥ 75</span></h2>
+        <h2><span class="badge bg-success">Topics I am good at Score</span></h2>
         {% if topics_won %}
             <div class="accordion" id="accordionWon">
                 {% for topic in topics_won %}
@@ -70,7 +71,7 @@
 
     <!-- Topics Lost Section -->
     <div class="section mb-5">
-        <h2>Topics I need to improve <span class="badge bg-danger">Score &lt; 75</span></h2>
+        <h2><span class="badge bg-danger">Topics I need to improve </span></h2>
         {% if topics_lost %}
             <div class="accordion" id="accordionLost">
                 {% for topic in topics_lost %}

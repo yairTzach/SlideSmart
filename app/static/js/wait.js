@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Set the href to include the filename and start at question 1
                     startButton.href = '/questions/' + filename + '/1';
 
+                    // Add event listener for the start button to trigger the countdown
+                    startButton.addEventListener('click', function (event) {
+                        event.preventDefault();  // Prevent immediate redirect
+                        startCountdown(startButton.href);  // Start countdown before redirect
+                    });
+
                 } else if (data.status === 'failed') {
                     // Handle failure case, e.g., alert the user
                     alert('Processing failed. Please try again.');
@@ -30,4 +36,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Start polling after the page loads
     checkProcessingStatus();
+
+    // Function to start countdown
+    function startCountdown(redirectUrl) {
+        let countdown = 5;
+        const countdownElement = document.createElement('p');
+        countdownElement.id = 'countdown';
+        countdownElement.textContent = `Starting in: ${countdown}`;
+        document.querySelector('.wait-wrapper').appendChild(countdownElement);
+
+        const interval = setInterval(function () {
+            countdown--;
+            countdownElement.textContent = `Starting in: ${countdown}`;
+
+            if (countdown === 0) {
+                clearInterval(interval);
+                window.location.href = redirectUrl;  // Redirect after countdown
+            }
+        }, 1000);
+    }
 });

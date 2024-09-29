@@ -85,7 +85,8 @@ def questions(filename, question_number):
             session['current_streak'] += 1
             session['current_level'], session['current_streak'] = update_level(previous_level, session['current_streak'])
         else:
-            session['current_topic_score'] += -5
+            if  session['current_topic_score'] >= 5:
+                session['current_topic_score'] += -5
 
             # Record the wrong answer details
             wrong_answer_detail = {
