@@ -1,0 +1,94 @@
+/* General Page Style */
+body {
+    background-image: url("../images/jh.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Baloo Bhaina 2', cursive;
+    color: #444;
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border: 5px solid #ffcccb;
+}
+
+/* Profile Heading */
+.profile-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    color: #ff4500;
+}
+
+/* Form Group */
+.profile-container .form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #4169e1;
+}
+
+.profile-container input[type="text"],
+.profile-container input[type="email"],
+.profile-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+    background-color: #fff0f5;
+    font-size: 1.1rem;
+}
+
+.profile-container button {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff6347;  /* Fun, bright background */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-container button:hover {
+    background-color: #ffa07a;
+}
+
+/* Flash Messages */
+.error-message, .success-message {
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.error-message {
+    background-color: #ffcccc;
+    color: #ff0000;
+}
+
+.success-message {
+    background-color: #ccffcc;
+    color: #32cd32;
+}
+
+/* Navigation Bar */
+
+
+
+

@@ -60,80 +60,33 @@
 
 </head>
 
-<body data-home-page="1-30.html" data-home-page-title="1-30" data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
+<!-- First Block: Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <!-- Logo or Site Name -->
+    <h1 class="hero-title">Welcome to Slide Smart!</h1>
 
-<!-- Speaker Icon -->
-<img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker-off.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
+    <!-- Subtitle or Tagline -->
+    <p class="hero-subtitle">Transform your lectures into interactive learning experiences.</p>
 
-<!-- Background Music -->
-<audio id="bg-audio" loop>
-  <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+    <!-- Call to Action Buttons -->
+    <div class="hero-buttons">
+      <a href="register" class="btn btn-primary">Join Us for Free</a>
+      <a href="login" class="btn btn-secondary">Already a Member?</a>
+    </div>
 
-<script>
-  const audioElement = document.getElementById("bg-audio");
-  const speakerIcon = document.getElementById("speaker");
-  
-  // Function to toggle audio play/pause
-  function toggleAudio() {
-      if (audioElement.paused) {
-          audioElement.play();
-          speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";  // Speaker ON image
-      } else {
-          audioElement.pause();
-          speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";  // Speaker OFF image
-      }
-  }
-  
-  // Store the current time of the audio in localStorage before leaving the page
-  window.addEventListener('beforeunload', function () {
-      localStorage.setItem('audioPlaying', !audioElement.paused);
-      localStorage.setItem('audioTime', audioElement.currentTime); // Save the current time
-  });
-  
-  // Restore the audio state and time when the page loads
-  window.addEventListener('DOMContentLoaded', function () {
-      const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
-      const audioTime = localStorage.getItem('audioTime') || 0; // Default to 0 if no time is stored
-      
-      audioElement.currentTime = audioTime; // Set the saved time
-      
-      if (audioPlaying) {
-          audioElement.play();
-          speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
-      } else {
-          audioElement.pause();
-          speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
-      }
-  });
-  </script>
+    <!-- Video Presentation -->
+    <div class="hero-video">
+      <iframe src="https://www.youtube.com/embed/B9YKnNtFqds?mute=0&showinfo=0&controls=1&start=0" frameborder="0" allowfullscreen></iframe>
+    </div>
 
-    <section class="u-align-center u-clearfix u-image u-shading u-section-1" id="sec-7616" data-image-width="1980" data-image-height="1114">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h1 class="u-custom-font u-font-lobster u-text u-text-body-alt-color u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Welcome to Slide Smart ! </h1>
-        <h3 class="u-text u-text-body-alt-color u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Already one of us ?&nbsp; </h3>
-        <h3 class="u-text u-text-body-alt-color u-text-3" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Join us for free !&nbsp;</h3>
-        <span class="u-file-icon u-icon u-icon-1" data-href="register" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
-            <img src="{{ url_for('static', filename='images/942748.png') }}" alt="">
-        </span>
-        <span class="u-file-icon u-icon u-icon-2" data-href="login" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
-            <img src="{{ url_for('static', filename='images/4753341.png') }}" alt="">
-        </span>
-                <h3 class="u-text u-text-body-alt-color u-text-4" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">Who are you Slide Smart ? </h3>
-        <div class="u-video u-video-contain u-video-1">
-          <div class="embed-responsive embed-responsive-1">
-            <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/B9YKnNtFqds?mute=0&amp;showinfo=0&amp;controls=0&amp;start=0" frameborder="0" allowfullscreen=""></iframe>
-          </div>
-        </div>
-        <h3 class="u-text u-text-body-alt-color u-text-5" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-delay="0">
-          Scroll down for more information !
-      </h3>
-      <span class="u-file-icon u-icon u-icon-3" data-animation-name="bounceIn" data-animation-duration="1000" data-animation-delay="0" data-animation-direction="">
-          <img src="{{ url_for('static', filename='images/31581.png') }}" alt="">
-      </span>
-            </div>
-    </section>
+    <!-- Scroll Down Indicator -->
+    <div class="scroll-down">
+      <p>Scroll down for more information</p>
+      <img src="{{ url_for('static', filename='images/31581.png') }}" alt="Scroll Down">
+    </div>
+  </div>
+</section>
     <section class="u-align-center u-clearfix u-container-align-center u-white u-section-2" id="carousel_2f1f">
       <div class="u-expanded-width u-gradient u-opacity u-opacity-55 u-shape u-shape-rectangle u-shape-1" data-animation-name="rollIn" data-animation-duration="1000" data-animation-direction=""></div>
       <div class="data-layout-selected u-clearfix u-gutter-40 u-layout-spacing-vertical u-layout-wrap u-layout-wrap-1">
@@ -376,13 +329,5 @@
     
     
     
-    <section class="u-backlink u-clearfix u-grey-80">
-      <p class="u-text">
-        <span>This site was created with the </span>
-        <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
-          <span>Nicepage</span>
-        </a>
-      </p>
-    </section>
   
 </body></html>

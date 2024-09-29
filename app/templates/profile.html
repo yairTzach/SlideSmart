@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags and CSS Links -->
+    <meta charset="UTF-8">
+    <title>Profile - Slide Smart Kids</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+
+    <style>
+        .profile-container {
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .profile-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-container input[type="text"],
+        .profile-container input[type="email"],
+        .profile-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .profile-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50; 
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .profile-container button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message, .success-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+       
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="logo">
+            <a href="{{ url_for('home_router.home') }}">
+                <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
+            </a>
+        </div>
+        <a href="{{ url_for('logout_router.logout') }}">Logout</a>
+        <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+        <a href="{{ url_for('home_router.home') }}">Home</a>
+    </div>
+
+    <div class="profile-container">
+        <h2>Update Profile</h2>
+
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+          {% if messages %}
+            <div class="error-message">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter=["success"]) %}
+          {% if messages %}
+            <div class="success-message">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Form for updating username and email -->
+        <form method="POST" action="{{ url_for('profile_router.update_details') }}">
+            <div class="form-group">
+                <label for="username">New Username</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">New Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+
+            <button type="submit">Update Details</button>
+        </form>
+
+        <!-- Form for changing password -->
+        <h2>Change Password</h2>
+        <form method="POST" action="{{ url_for('profile_router.change_password') }}">
+            <div class="form-group">
+                <label for="current_password">Current Password</label>
+                <input type="password" id="current_password" name="current_password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" id="new_password" name="new_password" required>
+            </div>
+
+            <button type="submit">Change Password</button>
+        </form>
+    </div>
+
+    <!-- Include any necessary scripts -->
+</body>
+</html>

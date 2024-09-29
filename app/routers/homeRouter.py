@@ -3,6 +3,7 @@ import os
 import time
 from threading import Thread
 from services.persist import process_pdf  # Import process_pdf from persist.py
+from bson import ObjectId
 
 home_router = Blueprint('home_router', __name__)
 
@@ -11,7 +12,25 @@ processing_status = {}
 
 @home_router.route('/home')
 def home():
-    return render_template('home.html')
+    user_id = request.cookies.get('userId')  # Get userId from cookies
+    if user_id:
+        db = current_app.config['db']
+        users_collection = db['users']
+        try:
+            # Convert user_id to ObjectId and check if the user exists in the database
+            user = users_collection.find_one({'_id': ObjectId(user_id)})
+            if user:
+                return render_template('home.html')
+            else:
+                # Handle the case where the userId does not exist in the database
+                return redirect(url_for('login_router.login'))
+        except Exception as e:
+            # Handle cases where ObjectId conversion fails or other exceptions
+            print(f"Error checking user ID: {e}")
+            return redirect(url_for('login_router.login'))
+    else:
+        # Redirect to login if no userId cookie is found
+        return redirect(url_for('login_router.login'))
 
 
 @home_router.route('/upload', methods=['POST'])
@@ -42,8 +61,26 @@ def upload_file():
 
 @home_router.route('/wait/<filename>')
 def wait(filename):
+    user_id = request.cookies.get('userId')  # Get userId from cookies
+    if user_id:
+        db = current_app.config['db']
+        users_collection = db['users']
+        try:
+            # Convert user_id to ObjectId and check if the user exists in the database
+            user = users_collection.find_one({'_id': ObjectId(user_id)})
+            if user:
+                    return render_template('wait.html', filename=filename)
+            else:
+                # Handle the case where the userId does not exist in the database
+                return redirect(url_for('login_router.login'))
+        except Exception as e:
+            # Handle cases where ObjectId conversion fails or other exceptions
+            print(f"Error checking user ID: {e}")
+            return redirect(url_for('login_router.login'))
+    else:
+        # Redirect to login if no userId cookie is found
+        return redirect(url_for('login_router.login'))
     # Render the wait.html page and pass the filename for polling
-    return render_template('wait.html', filename=filename)
 
 @home_router.route('/check_status/<filename>')
 def check_status(filename):

@@ -10,9 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();  // Prevent form submission until validation is complete
         e.stopImmediatePropagation();  // Prevent other submit handlers
 
-
         // Disable submit button to prevent multiple submissions
-        const submitButton = form.querySelector("input[type='submit']");
+        const submitButton = form.querySelector("button[type='submit']"); // Updated selector
         submitButton.disabled = true;
 
         // Check if passwords match

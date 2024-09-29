@@ -3,7 +3,21 @@
 {% block title %}Game Summary{% endblock %}
 
 {% block content %}
+<!-- Link CSS Files -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/summary.css') }}">
+
+<!-- Navigation Bar -->
+<div class="nav-bar">
+    <div class="logo">
+        <a href="{{ url_for('home_router.home') }}">
+            <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
+        </a>
+    </div>
+    <a href="{{ url_for('logout_router.logout') }}">Logout</a>
+    <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+    <a href="{{ url_for('home_router.home') }}">Home</a>
+</div>
 
 <div class="content-wrapper">
     <h1>Game Summary</h1>
@@ -100,13 +114,14 @@
         {% endif %}
     </div>
 
-<!-- Play Again Button -->
-<div class="text-center">
-    <a href="{{ url_for('questions_router.questions', filename=filename, question_number=1) }}" class="btn btn-primary btn-lg">
-        <i class="bi bi-arrow-counterclockwise"></i> Play Again - Same Game
-    </a>
-</div>
+    <!-- Play Again Button -->
+    <div class="text-center">
+        <a href="{{ url_for('questions_router.questions', filename=filename, question_number=1) }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-arrow-counterclockwise"></i> Play Again - Same Game
+        </a>
+    </div>
 </div>
 
+<!-- Include JavaScript Files -->
 <script src="{{ url_for('static', filename='js/summary.js') }}"></script>
 {% endblock %}

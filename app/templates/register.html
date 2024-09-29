@@ -1,178 +1,140 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en">
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="​&nbsp;​&nbsp;register">
-    <meta name="description" content="">
-    <title>register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}" media="screen">
-    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer></script>
-    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/register.js') }}" defer></script>
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - Slide Smart Kids</title>
 
-    <meta name="generator" content="Nicepage 6.16.5, nicepage.com">
-    <meta name="referrer" content="origin">
-    <link id="u-theme-google-font" rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    <link id="u-page-google-font" rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Lobster:400|Merriweather:300,300i,400,400i,700,700i,900,900i">
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="register">
-    <meta property="og:type" content="website">
-    <meta data-intl-tel-input-cdn-path="intlTelInput/">
-    <style>
-        .speaker-icon {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-        }
-    </style>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link id="u-theme-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Fredoka+One|Comic+Neue:400,700&display=swap">
+
+  <!-- JavaScript Files -->
+  <script defer src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+  <!-- Speaker Icon Styles -->
+  <style>
+    .speaker-icon {
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      width: 50px;
+      height: 50px;
+    }
+  </style>
 </head>
+<body>
 
-<body data-home-page="login.html" data-home-page-title="login" data-path-to-root="./" data-include-products="false"
-    class="u-body u-xl-mode" data-lang="en">
+<!-- Speaker Icon to Control Music -->
+<img id="speaker" class="speaker-icon"
+  src="{{ url_for('static', filename='images/speaker.png') }}"
+  alt="Speaker Icon" onclick="toggleAudio()">
 
-    <!-- Speaker Icon to Control Music -->
-    <img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker-off.png') }}"
-        alt="Speaker Icon" onclick="toggleAudio()">
+<!-- Background Music -->
+<audio id="bg-audio" loop>
+  <source src="{{ url_for('static', filename='sound/background.mp3') }}"
+    type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
-    <!-- Background Music -->
-    <audio id="bg-audio" loop>
-        <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+<!-- Audio Control Script -->
+<script>
+  const audioElement = document.getElementById("bg-audio");
+  const speakerIcon = document.getElementById("speaker");
 
-    <script>
-        const audioElement = document.getElementById("bg-audio");
-        const speakerIcon = document.getElementById("speaker");
+  function toggleAudio() {
+    if (audioElement.paused) {
+      audioElement.play();
+      speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
+    } else {
+      audioElement.pause();
+      speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
+    }
+  }
 
-        // Function to toggle audio play/pause
-        function toggleAudio() {
-            if (audioElement.paused) {
-                audioElement.play();
-                speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}"; // Speaker ON image
-            } else {
-                audioElement.pause();
-                speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}"; // Speaker OFF image
-            }
-        }
+  window.addEventListener('beforeunload', function () {
+    localStorage.setItem('audioPlaying', !audioElement.paused);
+    localStorage.setItem('audioTime', audioElement.currentTime);
+  });
 
-        // Store the current time of the audio in localStorage before leaving the page
-        window.addEventListener('beforeunload', function () {
-            localStorage.setItem('audioPlaying', !audioElement.paused);
-            localStorage.setItem('audioTime', audioElement.currentTime); // Save the current time
-        });
+  window.addEventListener('DOMContentLoaded', function () {
+    const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
+    const audioTime = localStorage.getItem('audioTime') || 0;
 
-        // Restore the audio state and time when the page loads
-        window.addEventListener('DOMContentLoaded', function () {
-            const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
-            const audioTime = localStorage.getItem('audioTime') || 0; // Default to 0 if no time is stored
+    audioElement.currentTime = audioTime;
 
-            audioElement.currentTime = audioTime; // Set the saved time
+    if (audioPlaying) {
+      audioElement.play();
+      speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
+    } else {
+      audioElement.pause();
+      speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
+    }
+  });
+</script>
 
-            if (audioPlaying) {
-                audioElement.play();
-                speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
-            } else {
-                audioElement.pause();
-                speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
-            }
-        });
-    </script>
+<!-- Main Content -->
+<div class="register-container">
+  <div class="register-wrapper">
+    <!-- Logo -->
+    <div class="register-logo">
+      <a href="{{ url_for('aboutUs_router.aboutUs') }}">
+        <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}"
+          alt="Slide Smart Kids Logo">
+      </a>
+    </div>
 
-    <section class="u-align-center u-clearfix u-container-align-center u-gradient u-section-1" src="" id="sec-cdc2">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <a href="aboutUs" class="u-icon-1">
-                <img src="{{ url_for('static', filename='images/1041728.png') }}" alt="">
-            </a>
+    <!-- Registration Form -->
+    <div class="register-form">
+      <h1>Join the Fun!</h1>
 
-            <div class="data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-1">
-                <div class="u-gutter-0 u-layout">
-                    <div class="u-layout-row">
-                        <div
-                            class="u-container-style u-layout-cell u-palette-4-light-2 u-shape-rectangle u-size-23 u-layout-cell-1">
-                            <div class="u-container-layout u-container-layout-1">
-                                <img class="u-image u-image-contain u-image-1"
-                                    src="{{ url_for('static', filename='images/dd.png') }}" data-image-width="400"
-                                    data-image-height="400">
-                            </div>
-                        </div>
-                        <div
-                            class="u-align-center u-container-align-center u-container-style u-layout-cell u-size-37 u-white u-layout-cell-2">
-                            <div class="u-container-layout u-container-layout-2">
-                                <h1 class="u-custom-font u-font-lobster u-text u-text-1"> &nbsp; <span
-                                        class="u-icon u-icon-2"></span>&nbsp;register<br>
-                                </h1><span class="u-file-icon u-icon u-icon-3"><img
-                                        src="{{ url_for('static', filename='images/3038168.png') }}" alt=""></span>
-                                <div class="u-form u-form-1">
-                                    <form action="{{ url_for('register_router.register') }}" method="POST"
-                                        class="u-clearfix u-form-spacing-27 u-form-vertical u-inner-form"
-                                        style="padding: 0px;" source="email" name="form">
-                                        <div class="u-form-group u-label-none u-form-group-1">
-                                            <label for="text-93a0" class="u-label">User Name</label>
-                                            <input type="text" placeholder="User Name" id="text-93a0" name="username"
-                                                class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius u-input-1"
-                                                required>
-                                        </div>
+      <!-- Display any error messages -->
+      {% if error %}
+      <div class="flash-messages">
+        <p>{{ error }}</p>
+      </div>
+      {% endif %}
 
-                                        <div class="u-form-group u-form-name u-label-none u-form-group-2">
-                                            <label for="password" class="u-label">Password</label>
-                                            <input type="password" placeholder="Password" id="password" name="password"
-                                                class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-2"
-                                                required="">
-                                        </div>
-
-                                        <div class="u-form-email u-form-group u-label-none u-form-group-3">
-                                            <label for="confirm_password" class="u-label">Confirm Password</label>
-                                            <input type="password" id="confirm_password" name="confirm_password"
-                                                class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-3"
-                                                required="" placeholder="Confirm Password">
-                                        </div>
-
-                                        <div class="u-form-group u-label-none u-form-group-4">
-                                            <label for="text-8d97" class="u-label">Email</label>
-                                            <input type="email" placeholder="Email" id="text-8d97" name="email"
-                                                class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius u-input-4"
-                                                required>
-                                        </div>
-
-                                        <div
-                                            class="u-align-left u-form-group u-form-submit u-label-none u-form-group-5">
-                                            <input type="submit" value="Register"
-                                                class="u-btn u-btn-round u-button-style u-radius-50">
-                                        </div>
-                                    </form>
-                                </div>
-                                <h3 class="u-custom-font u-font-merriweather u-text u-text-2">already have an account?
-                                </h3>
-                                <a href="{{ url_for('login_router.login') }}"
-                                    class="u-active-none u-border-2 u-border-custom-color-3 u-border-no-left u-border-no-right u-border-no-top u-btn u-btn-rectangle u-button-style u-custom-color-3 u-hover-none u-text-body-color u-btn-3">login
-                                </a><span class="u-file-icon u-icon u-icon-4"><img
-                                        src="{{ url_for('static', filename='images/4753341.png') }}" alt=""></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Registration Form -->
+      <form action="{{ url_for('register_router.register') }}" method="POST" id="register-form">
+        <div class="form-group">
+          <label for="text-93a0">Your Name</label>
+          <input type="text" id="text-93a0" name="username" required
+            placeholder="Choose a username">
         </div>
-
-    </section>
-
-    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-grey-80 u-footer" id="sec-cf86">
-        <div class="u-clearfix u-sheet u-sheet-1">
-            <p class="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the Text Element.</p>
+        <div class="form-group">
+          <label for="password">Secret Word</label>
+          <input type="password" id="password" name="password" required
+            placeholder="Create a secret word">
         </div>
-    </footer>
-    <section class="u-backlink u-clearfix u-grey-80">
-        <p class="u-text">
-            <span>This site was created with the </span>
-            <a class="u-link" href="https://nicepage.com/" target="_blank" rel="nofollow">
-                <span>Nicepage</span>
-            </a>
-        </p>
-    </section>
+        <div class="form-group">
+          <label for="confirm_password">Confirm Secret Word</label>
+          <input type="password" id="confirm_password" name="confirm_password" required
+            placeholder="Confirm your secret word">
+        </div>
+        <div class="form-group">
+          <label for="text-8d97">Email</label>
+          <input type="email" id="text-8d97" name="email" required
+            placeholder="Enter a parent's email">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up!</button>
+      </form>
+
+      <p class="login-link">Already have an account?
+        <a href="{{ url_for('login_router.login') }}">Log in here!</a>
+      </p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

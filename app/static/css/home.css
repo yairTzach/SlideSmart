@@ -1,180 +1,534 @@
- .u-section-1 {
-  background-image: linear-gradient(0deg, rgba(66,84,101,0.2), rgba(66,84,101,0.2)), url('images/jh.jpg');
-  background-position: 50% 50%;
-  min-height: 686px;
+/* Import Google Fonts */
+/* Ensure this is already included in your HTML <head> */
+/* @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Poppins:wght@400;600&display=swap'); */
+
+/* General Styles for Section */
+/* Hide the default file input */
+/* Left Section Styling */
+
+.u-layout-cell-1 {
+  flex: 0 0 50%; /* Adjust as needed */
+  max-width: 50%;
+  padding: 0;
+  margin: 0;
 }
 
-.u-section-1 .u-layout-wrap-1 {
-  pointer-events: auto;
-  width: calc(((100% - 1140px) / 2) + 1140px);
-  margin: 0 0 0 auto;
+
+/* Right Section Styling */
+.u-layout-cell-2 {
+  flex: 1; /* Take up the remaining space */
+  padding: 0;
+  margin: 0;
 }
 
-.u-section-1 .u-layout-cell-1 {
-  min-height: 686px;
-  pointer-events: auto;
+#pdfFile {
+  display: none;
 }
 
-.u-section-1 .u-container-layout-1 {
-  padding: 40px 0 40px 40px;
+/* Style the custom upload button */
+.custom-file-upload {
+  display: inline-block;
+  padding: 12px 25px;
+  color: #FFFFFF;
+  background-color: #FF6F61;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 10px;
 }
 
-.u-section-1 .u-text-1 {
-  text-align: left;
-  font-weight: 700;
-  text-transform: none;
-  font-family: Raleway, sans-serif;
-  font-size: 3rem;
-  margin: 115px 0 0;
+.custom-file-upload i {
+  margin-right: 10px;
 }
 
-.u-section-1 .u-text-2 {
-  font-style: italic;
-  line-height: 1.8;
-  font-weight: 700;
-  font-size: 1rem;
-  margin: 21px 60px 0 0;
+/* Hover effect for the upload button */
+.custom-file-upload:hover {
+  background-color: #FF8A80;
+  transform: scale(1.05);
 }
 
-.u-section-1 .u-btn-1 {
-  background-image: none;
-  border-style: none;
-  font-size: 1rem;
+/* Style for the drop area */
+#drop-area {
+  border: 2px dashed #FF6F61;
+  border-radius: 25px;
+  padding: 30px;
+  text-align: center;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Highlight drop area on dragover */
+#drop-area.highlight {
+  background-color: rgba(255, 111, 97, 0.2);
+}
+
+/* Style for the selected file name */
+#file-name {
+  display: block;
+  margin-top: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: #FFFFFF;
+}
+
+/* Style for the START TRIVIA button */
+.upload-form .u-btn-1 {
+  margin-top: 30px;
+  background-color: #FF6F61;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
   letter-spacing: 2px;
   font-weight: 700;
   text-transform: uppercase;
-  margin: 31px auto 0 0;
-  padding: 15px 44px 17px;
+  border: none;
+  border-radius: 25px;
+  padding: 20px 40px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  align-self: center; /* Center the button */
 }
 
-.u-section-1 .u-text-3 {
-  text-align: left;
-  margin: 20px 0 0;
+/* Hover effect for the START TRIVIA button */
+.upload-form .u-btn-1:hover {
+  background-color: #FF8A80;
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-.u-section-1 .u-btn-2 {
-  border-style: solid;
-  padding: 0;
-}
-
-.u-section-1 .u-image-1 {
-  min-height: 686px;
-  pointer-events: auto;
-  background-image: url("images/5807340-min.png");
-  background-position: 0% 50%;
-}
-
-.u-section-1 .u-container-layout-2 {
-  padding: 0 20px 30px 50px;
-}
-
-@media (max-width: 1199px) {
-   .u-section-1 {
-    min-height: 590px;
-  }
-
-  .u-section-1 .u-layout-wrap-1 {
-    width: calc(((100% - 940px) / 2) + 940px);
-  }
-
-  .u-section-1 .u-layout-cell-1 {
-    min-height: 590px;
-  }
-
-  .u-section-1 .u-text-1 {
-    margin-top: 12px;
-  }
-
-  .u-section-1 .u-image-1 {
-    min-height: 590px;
-  }
-}
-
+/* Responsive Adjustments */
 @media (max-width: 991px) {
-   .u-section-1 {
-    min-height: 416px;
-  }
-
-  .u-section-1 .u-layout-wrap-1 {
-    width: calc(((100% - 720px) / 2) + 720px);
-  }
-
-  .u-section-1 .u-layout-cell-1 {
-    min-height: 416px;
-  }
-
-  .u-section-1 .u-container-layout-1 {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 30px;
-  }
-
-  .u-section-1 .u-text-1 {
-    font-size: 2.25rem;
-    margin-top: 115px;
-  }
-
-  .u-section-1 .u-text-2 {
-    font-size: 0.875rem;
-  }
-
-  .u-section-1 .u-image-1 {
-    min-height: 416px;
-  }
-
-  .u-section-1 .u-container-layout-2 {
-    padding-left: 30px;
+  #drop-area {
+    max-width: 700px;
   }
 }
 
 @media (max-width: 767px) {
-   .u-section-1 {
-    min-height: 508px;
-  }
-
-  .u-section-1 .u-layout-wrap-1 {
-    width: calc(((100% - 540px) / 2) + 540px);
-  }
-
-  .u-section-1 .u-layout-cell-1 {
-    min-height: 100px;
-  }
-
-  .u-section-1 .u-container-layout-1 {
-    padding-top: 50px;
-    padding-right: 230px;
-    padding-left: 10px;
-  }
-
-  .u-section-1 .u-image-1 {
-    min-height: 393px;
-  }
-
-  .u-section-1 .u-container-layout-2 {
-    padding-right: 10px;
-    padding-left: 10px;
+  #drop-area {
+    max-width: 500px;
   }
 }
 
 @media (max-width: 575px) {
-   .u-section-1 {
-    min-height: 312px;
+  #drop-area {
+    max-width: 100%;
+    padding: 20px;
+  }
+}
+
+.u-section-1 {
+  background-image: linear-gradient(0deg, rgba(66,84,101,0.2), rgba(66,84,101,0.2)), url('{{ url_for('static', filename='images/jh.jpg') }}');
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 686px;
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Distribute space between text and image */
+  padding: 0 40px; /* Add horizontal padding */
+  
+}
+/* Main Section Styling */
+.u-section-1 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Left Section Styling */
+.u-layout-cell-1 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Right Section Styling */
+.u-layout-cell-2 {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+}
+
+/* Image Styling */
+.u-image-1 {
+  width: 100%;
+  height: 100vh;
+  background-image: url('{{ url_for('static', filename='images/5807340-min.png') }}');
+  background-size: cover;
+  background-position: center right; /* Move image to the right */
+  background-repeat: no-repeat;
+}
+
+/* Remove Padding and Margin from Parent Containers */
+.u-layout,
+.u-layout-row,
+.u-layout-cell,
+.u-container-layout {
+  padding: 0;
+  margin: 0;
+}
+
+/* Ensure Body and HTML Have No Margin */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .u-section-1 {
+    flex-direction: column;
   }
 
-  .u-section-1 .u-layout-wrap-1 {
-    width: calc(((100% - 340px) / 2) + 340px);
+  .u-layout-cell-1,
+  .u-layout-cell-2 {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 
-  .u-section-1 .u-container-layout-1 {
-    padding-top: 40px;
-    padding-right: 60px;
+  .u-image-1 {
+    height: 300px;
+    background-position: center center;
+  }
+}
+
+/* Container Layout */
+.u-container-layout-1 {
+  display: flex; /* Use flexbox for better alignment */
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  padding: 40px; /* Adjust the padding for spacing */
+  text-align: left; /* Align all content inside to the left */
+  margin-left: 0; /* Remove auto-centering */
+  max-width: 50%; /* Ensure text doesn't take full width */
+}
+
+/* Layout Row */
+/* Removed .u-layout-row since .u-section-1 uses flexbox directly */
+
+/* Layout Wrap */
+.u-layout-wrap-1 {
+  pointer-events: auto;
+  width: 100%; /* Make the container span full width */
+  margin: 0; /* Remove any centering effects */
+}
+
+/* H1 Styling */
+.u-text-1 {
+  font-family: 'Comic Neue', cursive; /* Playful font */
+  font-size: 4rem !important; /* Increased size for h1 */
+  margin-top: 20px !important; /* Adjust this value for better spacing */
+  margin-left: 0; /* Remove left margin */
+  white-space: nowrap; /* Prevent text from breaking into two lines */
+  color: #FF6F61; /* Vibrant coral color */
+  text-shadow: 2px 2px #FF6F61; /* Subtle gold shado  w for depth */
+  text-align: left;
+  
+
+  animation: moveH1 3s infinite alternate; /* Add moving animation */
+  /* Removed slideInLeft to focus on moving animation */
+}
+.u-text-3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #FFFFFF;
+  margin-top: 20px;
+  margin-left: 0;
+  text-align: left;
+  animation: fadeIn 2s ease forwards;
+  list-style-type: none;
+  line-height: 1.6;
+  white-space: nowrap;
+
+}
+
+.u-text-3 li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 35px;
+  white-space: nowrap;
+
+}
+
+.u-text-3 li i {
+  position: absolute;
+  left: 0;
+  color: #FF6F61;
+  font-size: 1.8rem;
+  white-space: nowrap;
+
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .u-text-3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-text-3 {
+    font-size: 1.6rem;
+  }
+  
+  .u-text-3 li i {
+    font-size: 1.3rem;
+  }
+  
+  .u-text-3 li {
+    padding-left: 30px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-text-3 {
+    font-size: 1.4rem;
+  }
+  
+  .u-text-3 li i {
+    font-size: 1.2rem;
+  }
+  
+  .u-text-3 li {
+    padding-left: 25px;
+  }
+}
+
+/* Glowing Animation */
+@keyframes glow {
+  0% {
+    text-shadow:
+      0 0 5px rgba(255, 215, 0, 0.5),
+      0 0 10px rgba(255, 215, 0, 0.4),
+      0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(255, 215, 0, 0.7),
+      0 0 20px rgba(255, 215, 0, 0.6),
+      0 0 30px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    text-shadow:
+      0 0 5px rgba(255, 215, 0, 0.5),
+      0 0 10px rgba(255, 215, 0, 0.4),
+      0 0 20px rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* Paragraph Text Styling */
+
+/* Button Styling */
+.u-btn-1 {
+  background-color: #FF6F61; /* Bright coral color */
+  color: #FFFFFF; /* White text */
+  font-family: 'Poppins', sans-serif; /* Playful font */
+  font-size: 1.5rem; /* Increased font size */
+  letter-spacing: 2px; /* Spacing between letters */
+  font-weight: 700; /* Bold text */
+  text-transform: uppercase; /* Uppercase letters */
+  border: none; /* Remove border */
+  border-radius: 25px; /* Rounded corners */
+  padding: 20px 40px; /* Increased padding for a larger button */
+  margin-top: 30px; /* Space above the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  align-self: flex-start; /* Align button to the left */
+  animation: fadeIn 3s ease forwards; /* Add fade-in animation */
+}
+
+/* Button Hover Effects */
+.u-btn-1:hover {
+  background-color: #FF8A80; /* Lighter shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Foreground Image Styling */
+.u-image-1 {
+  min-height: 686px;
+  pointer-events: auto;
+  background-image: url("images/5807340-min.png");
+  background-position: center right; /* Position image more to the right */
+  background-size: contain;
+  background-repeat: no-repeat;
+  max-width: 45%; /* Limit the image width */
+  height: 100%;
+  /* Removed animation: float 3s ease-in-out infinite; */
+}
+
+/* Container Layout 2 */
+.u-container-layout-2 {
+  padding: 0 20px 30px 50px;
+}
+
+/* Speaker Icon */
+.speaker-icon {
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  width: 50px; /* Increased size */
+  height: 50px; /* Increased size */
+  transition: transform 0.3s; /* Smooth hover effect */
+}
+
+.speaker-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Animations */
+
+/* Moving Animation for H1 */
+@keyframes moveH1 {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(-10px); }
+}
+
+/* Fade In Animation for Paragraph and Button */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Adjustments */
+
+/* For screens up to 1199px */
+@media (max-width: 1199px) {
+  .u-section-1 {
+      min-height: 590px;
+      padding: 0 20px; /* Adjust horizontal padding */
   }
 
-  .u-section-1 .u-text-1 {
-    font-size: 1.875rem;
+  .u-text-1 {
+      font-size: 3rem !important; /* Slightly smaller on medium screens */
   }
 
-  .u-section-1 .u-image-1 {
-    min-height: 260px;
+  .u-image-1 {
+      min-height: 590px;
+      max-width: 50%; /* Adjust image width */
+  }
+}
+
+/* For screens up to 991px */
+@media (max-width: 991px) {
+  .u-section-1 {
+      min-height: 416px;
+      padding: 0 20px; /* Adjust horizontal padding */
+  }
+
+  .u-container-layout-1 {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      padding-left: 30px;
+      max-width: 100%; /* Allow full width */
+  }
+
+  .u-text-1 {
+      font-size: 2.5rem !important;
+      margin-top: 80px;
+  }
+
+
+  .u-image-1 {
+      min-height: 416px;
+      max-width: 50%;
+  }
+
+  .u-container-layout-2 {
+      padding-left: 30px;
+  }
+}
+
+/* For screens up to 767px */
+@media (max-width: 767px) {
+  .u-section-1 {
+      min-height: 508px;
+      flex-direction: column; /* Stack text and image vertically */
+      align-items: center; /* Center items */
+  }
+
+  .u-layout-cell-1 {
+    width: 50%; /* Increase this value */
+    max-width: 100%; /* Ensure it doesn't exceed the parent container */
+    }
+
+  .u-container-layout-1 {
+      padding-top: px;
+      padding-right: 20px;
+      padding-left: 20px;
+      align-items: center; /* Center text */
+      text-align: center; /* Center text */
+  }
+
+  .u-text-1 {
+      font-size: 2.5rem !important;
+  }
+
+
+  .u-btn-1 {
+      font-size: 1.2rem; /* Increased for better touch */
+      padding: 15px 35px; /* Increased padding */
+  }
+
+  .u-image-1 {
+      min-height: 393px;
+      max-width: 80%; /* Reduce image width */
+      margin-top: 20px; /* Space above image */
+  }
+
+  .u-container-layout-2 {
+      padding-right: 10px;
+      padding-left: 10px;
+  }
+}
+
+/* For screens up to 575px */
+@media (max-width: 575px) {
+  .u-section-1 {
+      min-height: 312px;
+      padding: 0 10px; /* Reduce horizontal padding */
+  }
+
+  .u-container-layout-1 {
+      padding-top: 40px;
+      padding-right: 10px;
+      padding-left: 10px;
+  }
+
+  .u-text-1 {
+      font-size: 2rem !important;
+  }
+
+
+  .u-btn-1 {
+      font-size: 1rem; /* Smaller button text for small screens */
+      padding: 10px 25px; /* Adjusted padding */
+  }
+
+  .u-image-1 {
+      min-height: 260px;
+      max-width: 90%; /* Further reduce image width */
   }
 }

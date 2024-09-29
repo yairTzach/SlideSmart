@@ -1,64 +1,36 @@
-  <!DOCTYPE html>
-  <html style="font-size: 16px;" lang="en">
-  <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta charset="utf-8">
-      <meta name="keywords" content="Welcome to Quizy">
-      <meta name="description" content="">
-      <title>Home</title>
+<!DOCTYPE html>
+<html lang="en" style="font-size: 16px;">
+<head>
+    <!-- Meta Tags and CSS Links -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Slide Smart Kids</title>
+    <meta name="keywords" content="Welcome to Slide Smart Kids">
+    <meta name="description" content="">
 
-      <!-- Use Flask's url_for to reference static files -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" media="screen">
-      <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer=""></script>
-      <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer=""></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-      <meta name="theme-color" content="#478ac9">
-      <style>
-        .speaker-icon {
-            cursor: pointer;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            width: 40px;
-            height: 40px;
-        }
-    </style>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  </head>
-  <body class="u-body u-xl-mode" data-lang="en">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 
+    <!-- JavaScript Files -->
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer></script>
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer></script>
 
-            <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
-          <div class="menu-collapse" style="font-size: 1.125rem;">
-            <a class="u-button-style u-custom-effect-duration u-nav-link" href="#">
-              <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#svg-8303"></use></svg>
-              <svg class="u-svg-content" version="1.1" id="svg-8303" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
-</g></svg>
-            </a>
-          </div>
-          <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="./" style="padding: 19px 27px;">Logout</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-1.html" style="padding: 19px 27px;">Feedbacks</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-2.html" style="padding: 19px 27px;">Profile</a>
-</li></ul>
-          </div>
-          <div class="u-custom-menu u-nav-container-collapse">
-            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-              <div class="u-inner-container-layout u-sidenav-overflow">
-                <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="./">1-30</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-1.html">Page 1</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-2.html">Page 2</a>
-</li></ul>
-              </div>
-            </div>
-            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-          </div>
-        </nav>
-        <style>
-          body {
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#478ac9">
+
+    <!-- Additional Styles -->
+    <style>
+
+        /* Background styling */
+        body {
             background-image: linear-gradient(0deg, rgba(66,84,101,0.2), rgba(66,84,101,0.2)), url('{{ url_for('static', filename='images/jh.jpg') }}');
             background-size: cover;
             background-position: center center;
@@ -66,118 +38,137 @@
             margin: 0;
             padding: 0;
         }
-        /* Align the menu to the right */
-.u-menu {
-    width: 100%;
-}
+    </style>
+</head>
+<body class="u-body u-xl-mode" data-lang="en">
 
-.u-nav {
-    display: flex;
-    justify-content: flex-start; /* Align items to the left */
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="logo">
+            <a href="{{ url_for('home_router.home') }}">
+                <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
+            </a>
+        </div>
+        <a href="{{ url_for('logout_router.logout') }}">Logout</a>
+        <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+        <a href="{{ url_for('home_router.home') }}">Home</a>
+    </div>
 
-/* Optional: Remove default link styling */
-.u-nav .u-nav-link {
-    text-decoration: none;
-    color: inherit;
-    padding: 19px 27px;
-}
+    <!-- Speaker Icon to Control Music -->
 
-/* Ensure the menu is positioned correctly */
-.u-menu-1 {
-    position: relative; /* or absolute if needed */
-    top: 0;
-    left: 0;
-}
+    <!-- Main Content -->
+    <section class="u-align-center u-clearfix u-container-align-center u-image u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-section-1" style="background-image: url('{{ url_for('static', filename='images/jh.jpg') }}');" data-image-width="1980" data-image-height="1114">
+        <div class="data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
+            <div class="u-layout">
+                <div class="u-layout-row">
+                    
+                    <!-- Left Section: Text and PDF Upload -->
+                    <div class="u-align-left u-container-style u-layout-cell u-left-cell u-shape-rectangle u-size-20-lg u-size-20-xl u-size-23-md u-size-23-sm u-size-23-xs u-size-xs-60 u-layout-cell-1">
+                        <div class="u-container-layout u-container-layout-1">
+                            <h1 class="u-text u-text-body-alt-color u-text-1">Welcome to Slide Smart</h1>
+                            <ul class="u-text u-text-body-alt-color u-text-3">
+                                <li><i class="fas fa-book"></i> Study your lecture material.</li>
+                                <li><i class="fas fa-upload"></i> Upload your lecture slides in PDF format.</li>
+                                <li><i class="fas fa-play-circle"></i> Click "START TRIVIA" to generate personalized quiz questions.</li>
+                                <li><i class="fas fa-question-circle"></i> Test your knowledge and receive instant feedback.</li>
+                                <li><i class="fas fa-chart-line"></i> Review your results and improve.</li>
+                            </ul>
+                                            
+                            <!-- Form to upload a PDF -->
+                            <!-- Enhanced Upload Form -->
+                            <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/upload" class="upload-form" onsubmit="return validateForm()">
+                                <div id="drop-area">
+                                    <p>Drag & Drop your PDF here or</p>
+                                    <label for="pdfFile" class="custom-file-upload">
+                                        <i class="fas fa-cloud-upload-alt"></i> Choose PDF File
+                                    </label>
+                                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" onchange="handleFiles(this.files)" required>
+                                    <span id="file-name">No file selected</span>
+                                </div>
+                                <br>
+                                <input type="submit" value="START TRIVIA" class="u-btn u-btn-1">
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Section: Foreground Image -->
+                    <div class="u-align-center u-container-align-center u-container-style u-image u-layout-cell u-right-cell u-size-37-md u-size-37-sm u-size-37-xs u-size-40-lg u-size-40-xl u-size-xs-60 u-image-1" style="background-image: url('{{ url_for('static', filename='images/5807340-min.png') }}');" data-image-width="1422" data-image-height="900">
+                        <div class="u-container-layout u-container-layout-2"></div>
+                    </div>
 
-        </style>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <img id="speaker" class="speaker-icon" src="{{ url_for('static', filename='images/speaker.png') }}" alt="Speaker Icon" onclick="toggleAudio()">
-
-    <!-- Background Music -->
-    <audio id="bg-audio" loop>
-        <source src="{{ url_for('static', filename='sound/background.mp3') }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
+    <!-- JavaScript for PDF Upload and Validation -->
     <script>
-      const audioElement = document.getElementById("bg-audio");
-      const speakerIcon = document.getElementById("speaker");
+        // Get the drop area element
+        let dropArea = document.getElementById('drop-area');
       
-      // Function to toggle audio play/pause
-      function toggleAudio() {
-          if (audioElement.paused) {
-              audioElement.play();
-              speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";  // Speaker ON image
-          } else {
-              audioElement.pause();
-              speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";  // Speaker OFF image
-          }
-      }
+        // Prevent default behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+          dropArea.addEventListener(eventName, preventDefaults, false);
+        });
       
-      // Store the current time of the audio in localStorage before leaving the page
-      window.addEventListener('beforeunload', function () {
-          localStorage.setItem('audioPlaying', !audioElement.paused);
-          localStorage.setItem('audioTime', audioElement.currentTime); // Save the current time
-      });
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
       
-      // Restore the audio state and time when the page loads
-      window.addEventListener('DOMContentLoaded', function () {
-          const audioPlaying = localStorage.getItem('audioPlaying') === 'true';
-          const audioTime = localStorage.getItem('audioTime') || 0; // Default to 0 if no time is stored
-          
-          audioElement.currentTime = audioTime; // Set the saved time
-          
-          if (audioPlaying) {
-              audioElement.play();
-              speakerIcon.src = "{{ url_for('static', filename='images/speaker.png') }}";
-          } else {
-              audioElement.pause();
-              speakerIcon.src = "{{ url_for('static', filename='images/speaker-off.png') }}";
-          }
-      });
+        // Highlight drop area when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+          dropArea.addEventListener(eventName, highlight, false);
+        });
       
+        ['dragleave', 'drop'].forEach(eventName => {
+          dropArea.addEventListener(eventName, unhighlight, false);
+        });
+      
+        function highlight(e) {
+          dropArea.classList.add('highlight');
+        }
+      
+        function unhighlight(e) {
+          dropArea.classList.remove('highlight');
+        }
+      
+        // Handle dropped files
+        dropArea.addEventListener('drop', handleDrop, false);
+      
+        function handleDrop(e) {
+          let dt = e.dataTransfer;
+          let files = dt.files;
+          handleFiles(files);
+        }
+      
+        function handleFiles(files) {
+          document.getElementById('pdfFile').files = files; // Update the file input
+          displayFileName();
+        }
+      
+        // Display the selected file name
+        function displayFileName() {
+          const fileInput = document.getElementById('pdfFile');
+          const fileNameDisplay = document.getElementById('file-name');
+          const fileName = fileInput.files[0] ? fileInput.files[0].name : 'No file selected';
+          fileNameDisplay.textContent = fileName;
+        }
+
+        // Function to validate the file extension before submitting the form
+        function validateForm() {
+            const fileInput = document.getElementById('pdfFile');
+            const filePath = fileInput.value;
+            const allowedExtensions = /(\.pdf)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type. Please upload a PDF file.');
+                fileInput.value = ''; // Clear the input
+                document.getElementById('file-name').textContent = 'No file selected';
+                return false; // Prevent form submission
+            }
+            return true; // Proceed with form submission
+        }
     </script>
 
-      <!-- Background Image Section -->
-      <section class="u-align-center u-clearfix u-container-align-center u-image u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-section-1" style="background-image: url('{{ url_for('static', filename='images/jh.jpg') }}');" data-image-width="1980" data-image-height="1114">
-        <div class="data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
-          <div class="u-layout">
-            <div class="u-layout-row">
-              
-              <!-- Left Section: Text and PDF Upload -->
-              <div class="u-align-left u-container-style u-layout-cell u-left-cell u-shape-rectangle u-size-20-lg u-size-20-xl u-size-23-md u-size-23-sm u-size-23-xs u-size-xs-60 u-layout-cell-1">
-                <div class="u-container-layout u-container-layout-1">
-                  <h1 class="u-text u-text-body-alt-color u-text-1">Welcome to Slide Smart</h1>
-                  <p class="u-text u-text-body-alt-color u-text-2">Upload your lecture slide to generate quiz questions</p>
-                  
-                  <!-- Form to upload a PDF -->
-                  <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/upload">
-                    <label for="pdfFile" class="u-text u-text-body-alt-color u-text-2">Select a PDF file:</label><br>
-                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf"><br><br>
-                    <input type="submit" value="START TRIVIA" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-base u-radius-10 u-text-palette-1-base u-btn-1">
-                  </form>
-                </div>
-              </div>
-              
-              <!-- Right Section: Foreground Image -->
-              <div class="u-align-center u-container-align-center u-container-style u-image u-layout-cell u-right-cell u-size-37-md u-size-37-sm u-size-37-xs u-size-40-lg u-size-40-xl u-size-xs-60 u-image-1" style="background-image: url('{{ url_for('static', filename='images/5807340-min.png') }}');" data-image-width="1422" data-image-height="900">
-                <div class="u-container-layout u-container-layout-2"></div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-   <!-- <section class="u-backlink u-clearfix u-grey-80"> 
-        <p class="u-text">
-          <span>a</span>
-        </p>
-      </section> -->
-  </body>
-  </html>
+</body>
+</html>
