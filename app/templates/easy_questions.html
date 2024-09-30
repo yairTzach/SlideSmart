@@ -4,7 +4,7 @@
     <!-- Meta tags and CSS includes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Trivia Question</title>
+    <title>Easy Mode Question</title>
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/questions.css') }}" media="screen">
@@ -18,13 +18,10 @@
     <section class="u-align-center u-clearfix u-container-align-center u-section-1">
         <div class="u-clearfix u-sheet u-valign-middle">
             <!-- Kids-Friendly Heading -->
-            <h1 class="u-text u-text-default u-title kids-title">Let's Play the Mixed Levels Game!</h1>
+            <h1 class="u-text u-text-default u-title kids-title">Let's Play the Easy Level Game!</h1>
 
             <!-- Topic and Level Title -->
-            <h2 class="u-text u-text-default u-title u-title-level">{{ topic_name }} - Mixed Levels</h2>
-
-            <!-- Display the Question Level -->
-            <h3 class="u-text u-text-default question-level">Question Level: {{ question_data.difficulty|capitalize }}</h3>
+            <h2 class="u-text u-text-default u-title u-title-level">{{ topic_name }} - Easy Mode</h2>
 
             <!-- Score and Timer -->
             <div class="u-score-timer">
@@ -34,7 +31,7 @@
                 </div>
                 <div class="u-timer">
                     <img class="timer-icon" src="{{ url_for('static', filename='images/clock.png') }}" alt="Time Left">
-                    <span class="timer-text" id="timer">30</span>
+                    <span class="timer-text" id="timer">60</span>
                 </div>
             </div>
 
@@ -42,7 +39,7 @@
             <h3 class="u-align-center u-text u-text-default">{{ question_data.question }}</h3>
 
             <!-- Options Form -->
-            <form id="question-form" method="post" action="{{ url_for('questions_router.questions', filename=filename, question_number=question_number) }}" class="u-form">
+            <form id="question-form" method="post" action="{{ url_for('easy_questions_router.easy_questions', filename=filename, question_number=question_number) }}" class="u-form">
                 <!-- Hidden field to store the correct answer -->
                 <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
 
@@ -82,28 +79,34 @@
     <script>
         const form = document.getElementById('question-form');
         const timerElement = document.getElementById('timer');
-        const MAX_TIME = 30; // Maximum time per question
+        const MAX_TIME = 60; // Maximum time per question in easy mode
 
-        // Timer logic
-        let startTime = localStorage.getItem('startTime');
+        // Check if the start time exists in localStorage, otherwise set it to the current time
+        let startTime = localStorage.getItem('easyStartTime');
         if (!startTime) {
             startTime = Date.now();
-            localStorage.setItem('startTime', startTime);
+            localStorage.setItem('easyStartTime', startTime);
         }
 
+        // Calculate time left by subtracting elapsed time from MAX_TIME
         const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
         let timeLeft = MAX_TIME - elapsedTime;
 
+        // Function to submit the form and clear localStorage
         const submitForm = () => {
-            clearInterval(timer);
-            localStorage.removeItem('startTime');
-            form.submit();
+            clearInterval(timer); // Ensure the interval is cleared
+            localStorage.removeItem('easyStartTime'); // Clear the start time in localStorage
+            form.submit(); // Submit the form
         };
 
         if (timeLeft <= 0) {
+            // Time has already run out, auto-submit the form
             submitForm();
         } else {
+            // Set the initial time left immediately upon page load
             timerElement.textContent = timeLeft;
+
+            // Update timer element every second
             const timer = setInterval(() => {
                 if (timeLeft <= 0) {
                     submitForm();
@@ -114,9 +117,10 @@
             }, 1000);
         }
 
+        // Clear start time from localStorage after submitting the form to reset the timer for the next question
         form.addEventListener('submit', () => {
-            clearInterval(timer);
-            localStorage.removeItem('startTime');
+            clearInterval(timer); // Ensure the interval is cleared when submitting
+            localStorage.removeItem('easyStartTime');
         });
     </script>
 </body>

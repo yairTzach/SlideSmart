@@ -86,3 +86,54 @@ def wait(filename):
 def check_status(filename):
     status = processing_status.get(filename, 'processing')  # Status is 'processing', 'complete', or 'failed'
     return jsonify({'status': status})
+# homeRouter.py
+
+from flask import Blueprint, request, redirect, url_for, render_template, jsonify, current_app, session  # Added 'session' import
+
+# ... rest of your imports ...
+
+@home_router.route('/chooseGame/<filename>')
+def choose_game(filename):
+    session_keys = [
+    'current_topic_score', 'current_streak', 'current_level',
+    'question_count', 'current_topic_index', 'topics_scores',
+    'wrong_answers', 'total_questions_answered',
+    'easy_question_number', 'medium_question_number',
+    'hard_question_number'
+    ]
+    for key in session_keys:
+        session.pop(key, None)
+
+    user_id = request.cookies.get('userId')
+    print(f"[DEBUG] User ID from cookie in choose_game: {user_id}")  # Debugging
+
+    if user_id:
+        db = current_app.config['db']
+        users_collection = db['users']
+        try:
+            # Verify if the user exists in the database
+            user = users_collection.find_one({'_id': ObjectId(user_id)})
+            print(f"[DEBUG] User document in choose_game: {user}")  # Debugging
+
+            if user:
+                # Build the choose game URL
+                choose_game_url = url_for('home_router.choose_game', filename=filename)
+                print(f"[DEBUG] choose_game_url to be stored: {choose_game_url}")  # Debugging
+
+                # Update the user's document with the choose_game_url
+                result = users_collection.update_one(
+                    {'_id': ObjectId(user_id)},
+                    {'$set': {'choose_game_url': choose_game_url}}
+                )
+                print(f"[DEBUG] Update result: {result.modified_count} document(s) updated.")  # Debugging
+
+                return render_template('chooseGame.html', filename=filename)
+            else:
+                print("[DEBUG] No user found with given user ID in choose_game.")  # Debugging
+                return redirect(url_for('login_router.login'))
+        except Exception as e:
+            print(f"[ERROR] Exception in choose_game: {e}")  # Debugging
+            return redirect(url_for('login_router.login'))
+    else:
+        print("[DEBUG] No user ID found in cookies in choose_game.")  # Debugging
+        return redirect(url_for('login_router.login'))

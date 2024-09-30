@@ -8,6 +8,11 @@ from routers.aboutUsRouter import aboutUs_router
 from routers.summaryRouter import summary_router
 from routers.logoutRouter import logout_router
 from routers.profileRouter import profile_router  # Import the new profile_router
+from routers.hardQuestionsRouter import hard_questions_router
+from routers.easyQuestionsRouter import easy_questions_router
+from routers.mediumQuestionsRouter import medium_questions_router
+
+
 
 
 from pymongo import MongoClient
@@ -42,7 +47,12 @@ main.register_blueprint(aboutUs_router, url_prefix='/')
 main.register_blueprint(questions_router, url_prefix='/')
 main.register_blueprint(summary_router, url_prefix='/')
 main.register_blueprint(logout_router, url_prefix='/')
-main.register_blueprint(profile_router, url_prefix='/')  # Add this line
+main.register_blueprint(profile_router, url_prefix='/')  
+main.register_blueprint(hard_questions_router, url_prefix='/')  
+main.register_blueprint(easy_questions_router,url_prefix='/')
+main.register_blueprint(medium_questions_router,url_prefix='/')
+
+
 
 
 

@@ -14,13 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     const startButton = document.getElementById('startButton');
                     startButton.style.pointerEvents = 'auto';  // Enable the button
                     startButton.style.opacity = '1';           // Make the button fully visible
-                    // Set the href to include the filename and start at question 1
-                    startButton.href = '/questions/' + filename + '/1';
+                    // Set the href to the chooseGame page
+                    startButton.href = '/chooseGame/' + filename;
 
-                    // Add event listener for the start button to trigger the countdown
+                    // Remove countdown functionality if any
                     startButton.addEventListener('click', function (event) {
-                        event.preventDefault();  // Prevent immediate redirect
-                        startCountdown(startButton.href);  // Start countdown before redirect
+                        // Proceed directly
                     });
 
                 } else if (data.status === 'failed') {
@@ -36,23 +35,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Start polling after the page loads
     checkProcessingStatus();
-
-    // Function to start countdown
-    function startCountdown(redirectUrl) {
-        let countdown = 5;
-        const countdownElement = document.createElement('p');
-        countdownElement.id = 'countdown';
-        countdownElement.textContent = `Starting in: ${countdown}`;
-        document.querySelector('.wait-wrapper').appendChild(countdownElement);
-
-        const interval = setInterval(function () {
-            countdown--;
-            countdownElement.textContent = `Starting in: ${countdown}`;
-
-            if (countdown === 0) {
-                clearInterval(interval);
-                window.location.href = redirectUrl;  // Redirect after countdown
-            }
-        }, 1000);
-    }
 });

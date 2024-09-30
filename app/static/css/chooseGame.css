@@ -1,0 +1,137 @@
+/* chooseGame.css */
+
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Neue', cursive, sans-serif;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('../images/jh.jpg');
+    
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+  .u-text-1 {
+    font-family: 'Comic Neue', cursive; /* Playful font */
+    font-size: 4rem !important; /* Increased size for h1 */
+    margin-top: 20px !important; /* Adjust this value for better spacing */
+    margin-left: 0; /* Remove left margin */
+    white-space: nowrap; /* Prevent text from breaking into two lines */
+    color: #FF6F61; /* Vibrant coral color */
+    text-shadow: 2px 2px #FF6F61; /* Subtle gold shado  w for depth */
+    text-align: left;
+    
+  
+    animation: moveH1 3s infinite alternate; /* Add moving animation */
+    /* Removed slideInLeft to focus on moving animation */
+  }
+  
+  
+  
+  
+
+.u-section-1 {
+    padding: 50px 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.u-title {
+    font-family: 'Fredoka One', cursive;
+    color: #FF6347; /* Tomato color */
+    text-shadow: 2px 2px #FFD700; /* Gold color shadow */
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #2F4F4F; /* Dark Slate Gray */
+    margin-bottom: 40px;
+}
+
+.u-game-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.u-game-option {
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.u-game-option img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.u-game-option h2 {
+    font-family: 'Fredoka One', cursive;
+    color: #FF6F61; /* Lime Green */
+    margin-bottom: 10px;
+}
+
+.u-game-option p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.u-game-option .u-btn {
+    background-color: #FF6F61; /* Bright coral color */
+    color: #FFFFFF; /* White text */
+    font-family: 'Poppins', sans-serif; /* Playful font */
+    font-size: 0.9rem; /* Adjusted font size */
+    letter-spacing: 1px; /* Adjusted letter spacing */
+    font-weight: 700; /* Bold text */
+    text-transform: uppercase; /* Uppercase letters */
+    border: none; /* Remove border */
+    border-radius: 25px; /* Rounded corners */
+    padding: 10px 20px; /* Reduced padding */
+    margin-top: 20px; /* Space above the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%; /* Make the button take up full width of the container */
+    box-sizing: border-box; /* Include padding in the width */
+}
+
+.u-game-option .u-btn:hover {
+    background-color: #FFC107;
+}
+
+@media (max-width: 768px) {
+    .u-game-option {
+        width: 100%;
+    }
+}
+
+/* Navigation Bar Styles */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFD700; /* Gold color */
+    padding: 10px 20px;
+}
+
+.nav-bar .logo img {
+    height: 50px;
+}
+
+.nav-bar .nav-links a {
+    color: #000;
+    font-weight: bold;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.nav-bar .nav-links a:hover {
+    text-decoration: underline;
+}

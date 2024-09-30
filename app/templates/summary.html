@@ -1,41 +1,53 @@
 {% extends "base.html" %}
 
-{% block title %}Game Summary{% endblock %}
+{% block title %}{{ game_mode }} Game Summary{% endblock %}
 
-{% block content %}
+{% block head %}
 <!-- Link CSS Files -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/summary.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
+
+{% block content %}
 
 <!-- Navigation Bar -->
-    <!-- Navigation Bar -->
-    <div class="nav-bar">
-        <div class="logo">
-            <a href="{{ url_for('home_router.home') }}">
-                <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
-            </a>
-        </div>
-        <a href="{{ url_for('logout_router.logout') }}">Logout</a>
-        <a href="{{ url_for('profile_router.profile') }}">Profile</a>
-        <a href="{{ url_for('home_router.home') }}">Home</a>
+<div class="nav-bar">
+    <div class="logo">
+        <a href="{{ url_for('home_router.home') }}">
+            <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}"
+                alt="Slide Smart Kids Logo">
+        </a>
     </div>
+    <div class="nav-links">
+        <a href="{{ url_for('home_router.home') }}">Home</a>
+        <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+        <a href="{{ url_for('logout_router.logout') }}">Logout</a>
+    </div>
+</div>
 
 <div class="content-wrapper">
-    <h1>Game Summary</h1>
+    <h1>{{ game_mode }} Game Summary</h1>
 
     <!-- Topics Won Section -->
     <div class="section mb-5">
-        <h2><span class="badge bg-success">Topics I am good at Score</span></h2>
+        <h2><span class="badge bg-success">Topics I am good at</span></h2>
         {% if topics_won %}
             <div class="accordion" id="accordionWon">
                 {% for topic in topics_won %}
                     <div class="accordion-item u-option-item">
                         <h2 class="accordion-header" id="headingWon{{ loop.index }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWon{{ loop.index }}" aria-expanded="false" aria-controls="collapseWon{{ loop.index }}">
+                            <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseWon{{ loop.index }}"
+                                aria-expanded="false"
+                                aria-controls="collapseWon{{ loop.index }}">
                                 {{ topic.topic_name }} - Score: {{ topic.score }}
                             </button>
                         </h2>
-                        <div id="collapseWon{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="headingWon{{ loop.index }}" data-bs-parent="#accordionWon">
+                        <div id="collapseWon{{ loop.index }}"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingWon{{ loop.index }}"
+                            data-bs-parent="#accordionWon">
                             <div class="accordion-body">
                                 {% if wrong_answers.get(topic.topic_name) %}
                                     {% for wrong in wrong_answers[topic.topic_name] %}
@@ -48,8 +60,7 @@
                                                             correct-answer
                                                         {% elif option.text == wrong.selected_option %}
                                                             incorrect-answer
-                                                        {% endif %}
-                                                    ">
+                                                        {% endif %}">
                                                         {{ option.text }}
                                                     </li>
                                                 {% endfor %}
@@ -57,7 +68,9 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    <p class="text-success">You got all answers correct in this topic!</p>
+                                    <p class="text-success">
+                                        You got all answers correct in this topic!
+                                    </p>
                                 {% endif %}
                             </div>
                         </div>
@@ -65,23 +78,32 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p class="text-success">No topics with score greater than 75!</p>
+            <p class="text-success">
+                No topics with score greater than {{ passing_score }}!
+            </p>
         {% endif %}
     </div>
 
     <!-- Topics Lost Section -->
     <div class="section mb-5">
-        <h2><span class="badge bg-danger">Topics I need to improve </span></h2>
+        <h2><span class="badge bg-danger">Topics I need to improve</span></h2>
         {% if topics_lost %}
             <div class="accordion" id="accordionLost">
                 {% for topic in topics_lost %}
                     <div class="accordion-item u-option-item">
                         <h2 class="accordion-header" id="headingLost{{ loop.index }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLost{{ loop.index }}" aria-expanded="false" aria-controls="collapseLost{{ loop.index }}">
+                            <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseLost{{ loop.index }}"
+                                aria-expanded="false"
+                                aria-controls="collapseLost{{ loop.index }}">
                                 {{ topic.topic_name }} - Score: {{ topic.score }}
                             </button>
                         </h2>
-                        <div id="collapseLost{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="headingLost{{ loop.index }}" data-bs-parent="#accordionLost">
+                        <div id="collapseLost{{ loop.index }}"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingLost{{ loop.index }}"
+                            data-bs-parent="#accordionLost">
                             <div class="accordion-body">
                                 {% if wrong_answers.get(topic.topic_name) %}
                                     {% for wrong in wrong_answers[topic.topic_name] %}
@@ -94,8 +116,7 @@
                                                             correct-answer
                                                         {% elif option.text == wrong.selected_option %}
                                                             incorrect-answer
-                                                        {% endif %}
-                                                    ">
+                                                        {% endif %}">
                                                         {{ option.text }}
                                                     </li>
                                                 {% endfor %}
@@ -103,7 +124,10 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    <p class="text-danger">You had no wrong answers in this topic, but didn’t score enough to win.</p>
+                                    <p class="text-danger">
+                                        You had no wrong answers in this topic,
+                                        but didn’t score enough to win.
+                                    </p>
                                 {% endif %}
                             </div>
                         </div>
@@ -111,18 +135,18 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p class="text-danger">No topics with a score smaller than 75!</p>
+            <p class="text-danger">
+                No topics with a score smaller than {{ passing_score }}!
+            </p>
         {% endif %}
     </div>
 
-    <!-- Play Again Button -->
+    <!-- Return to Choose Game Button -->
     <div class="text-center">
-        <a href="{{ url_for('questions_router.questions', filename=filename, question_number=1) }}" class="btn btn-primary btn-lg">
-            <i class="bi bi-arrow-counterclockwise"></i> Play Again - Same Game
+        <a href="{{ choose_game_url }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-arrow-left-circle"></i> Return to Choose Game
         </a>
     </div>
 </div>
 
-<!-- Include JavaScript Files -->
-<script src="{{ url_for('static', filename='js/summary.js') }}"></script>
 {% endblock %}

@@ -135,7 +135,7 @@ def questions(filename, question_number):
             return redirect(url_for('questions_router.questions', filename=filename, question_number=1))
 
         # Check if total questions answered have reached 30
-        if session['total_questions_answered'] >= 30:
+        if session['total_questions_answered'] >= 70:
             session['topics_scores'].append({
                 'topic_name': current_topic_name,
                 'score': session['current_topic_score']

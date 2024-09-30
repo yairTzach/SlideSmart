@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 16px;">
+<head>
+    <!-- Meta Tags and CSS Links -->
+    <meta charset="UTF-8">
+    <title>Choose Your Game - Slide Smart Kids</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chooseGame.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+
+    <!-- JavaScript Files -->
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer></script>
+    <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/nicepage.js') }}" defer></script>
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#478ac9">
+
+    <!-- Additional Styles -->
+    <style>
+        /* Additional inline styles if necessary */
+    </style>
+</head>
+<body class="u-body u-xl-mode" data-lang="en">
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="logo">
+            <a href="{{ url_for('home_router.home') }}">
+                <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
+            </a>
+        </div>
+        <a href="{{ url_for('logout_router.logout') }}">Logout</a>
+        <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+        <a href="{{ url_for('home_router.home') }}">Home</a>
+    </div>
+
+    <!-- Main Content -->
+    <section class="u-align-center u-clearfix u-section-1">
+        <div class="u-clearfix u-sheet u-valign-middle">
+            <!-- Page Title -->
+            <h1 class="u-text u-text-body-alt-color u-text-1">CHOOSE YOUR GAME</h1>
+            <p class="u-text u-text-default">Select a game to start learning and having fun!</p>
+
+            <!-- Game Options Container -->
+            <div class="u-game-options">
+                <!-- Easy Game Option -->
+                <div class="u-game-option">
+                    <img src="{{ url_for('static', filename='images/easy_game_icon.png') }}" alt="Easy Game">
+                    <h2>Easy Game</h2>
+                    <p>Start with basic questions to warm up!</p>
+                    <a href="{{ url_for('easy_questions_router.easy_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Easy Mode</a>
+                </div>
+
+                <!-- Medium Game Option -->
+                <div class="u-game-option">
+                    <img src="{{ url_for('static', filename='images/medium_game_icon.png') }}" alt="Medium Game">
+                    <h2>Medium Game</h2>
+                    <p>Test your knowledge with moderate questions!</p>
+                    <a href="{{ url_for('medium_questions_router.medium_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Medium Mode</a>
+                </div>
+
+                <!-- Trivia Game Option (Regular Mode) -->
+                <div class="u-game-option">
+                    <img src="{{ url_for('static', filename='images/trivia_game_icon.png') }}" alt="Trivia Game">
+                    <h2>Trivia Game</h2>
+                    <p>Enjoy a mix of all question levels!</p>
+                    <a href="{{ url_for('questions_router.questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Now</a>
+                </div>
+
+                <!-- Hard Game Option -->
+                <div class="u-game-option">
+                    <img src="{{ url_for('static', filename='images/hard_game_icon.png') }}" alt="Hard Game">
+                    <h2>Hard Game</h2>
+                    <p>Challenge yourself with tough questions!</p>
+                    <a href="{{ url_for('hard_questions_router.hard_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Hard Mode</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include your JS scripts if any -->
+
+</body>
+</html>
