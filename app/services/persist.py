@@ -110,3 +110,5 @@ def process_pdf(pdf_path, filename, questions_folder, processing_status):
     else:
         # Handle extraction failure
         processing_status[filename] = 'failed'
+
+    

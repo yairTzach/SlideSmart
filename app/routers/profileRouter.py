@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, make_response
 from bson import ObjectId
 from werkzeug.security import check_password_hash, generate_password_hash
+from bson import ObjectId
+
 
 profile_router = Blueprint('profile_router', __name__)
 

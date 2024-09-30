@@ -9,6 +9,21 @@ hard_questions_router = Blueprint('hard_questions_router', __name__)
 
 @hard_questions_router.route('/hard_questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
 def hard_questions(filename, question_number):
+    user_id = request.cookies.get('userId')
+    if not user_id:
+        return redirect(url_for('login_router.login'))
+
+    db = current_app.config['db']
+    users_collection = db['users']
+
+    try:
+        user = users_collection.find_one({'_id': ObjectId(user_id)})
+        if not user:
+            return redirect(url_for('login_router.login'))
+    except Exception as e:
+        print(f"Error fetching user: {e}")
+        return redirect(url_for('login_router.login'))
+
     # Initialize session variables specific to hard mode
     if 'hard_current_topic_score' not in session:
         session['hard_current_topic_score'] = 0
@@ -33,17 +48,18 @@ def hard_questions(filename, question_number):
 
     # Get the current topic based on session
     current_topic_index = session.get('hard_current_topic_index', 0)
-    if current_topic_index >= len(questions_data):
+    if current_topic_index >= total_topics:
         return redirect(url_for('summary_router.hard_summary', filename=filename))
 
     current_topic = questions_data[current_topic_index]
     current_topic_name = current_topic['topic_title']
 
     # Determine if the current topic is the last one
-    is_last_topic = (current_topic_index == len(questions_data) - 1)
+    is_last_topic = (current_topic_index == total_topics - 1)
 
     # Filter hard questions
     hard_questions = [q for q in current_topic['questions'] if q['difficulty'] == 'hard']
+    total_questions = len(hard_questions)
 
     if request.method == 'POST':
         # Get selected option and correct answer from the form
@@ -59,6 +75,7 @@ def hard_questions(filename, question_number):
         if selected_option == correct_answer:
             session['hard_current_topic_score'] += 40  # Hard questions are worth 40 points
         else:
+            # Deduct points for a wrong answer
             if session['hard_current_topic_score'] >= 5:
                 session['hard_current_topic_score'] -= 5
 
@@ -72,25 +89,30 @@ def hard_questions(filename, question_number):
             }
             session['hard_wrong_answers'].append(wrong_answer_detail)
 
-        # Increment question counts
+        # Increment question count
         session['hard_question_count'] += 1
 
-        # Check if 6 questions have been answered in this topic
-        if session['hard_question_count'] >= 6 or question_number >= len(hard_questions):
+        # If 6 questions have been answered or we've reached the last question in this topic
+        if session['hard_question_count'] >= 6 or question_number >= total_questions:
+            # Store the topic score
             session['hard_topics_scores'].append({
                 'topic_name': current_topic_name,
                 'score': session['hard_current_topic_score']
             })
 
+            # Move to the next topic
             session['hard_current_topic_index'] += 1
             session['hard_question_count'] = 0
             session['hard_current_topic_score'] = 0
 
+            # If we've reached the last topic, redirect to the summary
             if session['hard_current_topic_index'] >= total_topics:
                 return redirect(url_for('summary_router.hard_summary', filename=filename))
 
+            # Move to the first question of the next topic
             return redirect(url_for('hard_questions_router.hard_questions', filename=filename, question_number=1))
 
+        # Move to the next question within the same topic
         return redirect(url_for('hard_questions_router.hard_questions', filename=filename, question_number=question_number + 1))
 
     # Handle GET request: Render the current question

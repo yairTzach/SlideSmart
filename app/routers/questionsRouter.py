@@ -4,11 +4,29 @@ from flask import Blueprint, request, render_template, current_app, redirect, ur
 import os
 import re
 import random  # Moved import to the top for better practice
+from bson import ObjectId
+
 
 questions_router = Blueprint('questions_router', __name__)
 
 @questions_router.route('/questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
+
 def questions(filename, question_number):
+    user_id = request.cookies.get('userId')
+    if not user_id:
+        return redirect(url_for('login_router.login'))
+
+    db = current_app.config['db']
+    users_collection = db['users']
+
+    try:
+        user = users_collection.find_one({'_id': ObjectId(user_id)})
+        if not user:
+            return redirect(url_for('login_router.login'))
+    except Exception as e:
+        print(f"Error fetching user: {e}")
+        return redirect(url_for('login_router.login'))
+
     # Initialize session variables if not present
     if 'current_topic_score' not in session:
         session['current_topic_score'] = 0

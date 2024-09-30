@@ -48,41 +48,46 @@
         <div class="u-clearfix u-sheet u-valign-middle">
             <!-- Page Title -->
             <h1 class="u-text u-text-body-alt-color u-text-1">CHOOSE YOUR GAME</h1>
-            <p class="u-text u-text-default">Select a game to start learning and having fun!</p>
+            <br>    
+            <br>
+            <br>
+            
+
 
             <!-- Game Options Container -->
             <div class="u-game-options">
                 <!-- Easy Game Option -->
                 <div class="u-game-option">
-                    <img src="{{ url_for('static', filename='images/easy_game_icon.png') }}" alt="Easy Game">
-                    <h2>Easy Game</h2>
+                    <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Easy Game">
+                    <h2>Easy Mode</h2>
                     <p>Start with basic questions to warm up!</p>
                     <a href="{{ url_for('easy_questions_router.easy_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Easy Mode</a>
                 </div>
 
                 <!-- Medium Game Option -->
                 <div class="u-game-option">
-                    <img src="{{ url_for('static', filename='images/medium_game_icon.png') }}" alt="Medium Game">
-                    <h2>Medium Game</h2>
+                    <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Medium Game">
+                    <h2>Medium Mode</h2>
                     <p>Test your knowledge with moderate questions!</p>
                     <a href="{{ url_for('medium_questions_router.medium_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Medium Mode</a>
+                </div>
+                <div class="u-game-option">
+                    <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Hard Game">
+                    <h2>Hard Mode</h2>
+                    <p>Challenge yourself with tough questions!</p>
+                    <a href="{{ url_for('hard_questions_router.hard_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Hard Mode</a>
                 </div>
 
                 <!-- Trivia Game Option (Regular Mode) -->
                 <div class="u-game-option">
-                    <img src="{{ url_for('static', filename='images/trivia_game_icon.png') }}" alt="Trivia Game">
-                    <h2>Trivia Game</h2>
+                    <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Trivia Game">
+                    <h2>Mixed Mode</h2>
                     <p>Enjoy a mix of all question levels!</p>
                     <a href="{{ url_for('questions_router.questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Now</a>
                 </div>
 
                 <!-- Hard Game Option -->
-                <div class="u-game-option">
-                    <img src="{{ url_for('static', filename='images/hard_game_icon.png') }}" alt="Hard Game">
-                    <h2>Hard Game</h2>
-                    <p>Challenge yourself with tough questions!</p>
-                    <a href="{{ url_for('hard_questions_router.hard_questions', filename=filename, question_number=1) }}" class="u-btn u-button-style">Play Hard Mode</a>
-                </div>
+                
             </div>
         </div>
     </section>

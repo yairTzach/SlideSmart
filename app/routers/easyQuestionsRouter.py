@@ -3,11 +3,27 @@
 from flask import Blueprint, request, render_template, current_app, redirect, url_for, session
 import os
 import random
+from bson import ObjectId
 
 easy_questions_router = Blueprint('easy_questions_router', __name__)
 
 @easy_questions_router.route('/easy_questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
 def easy_questions(filename, question_number):
+    user_id = request.cookies.get('userId')
+    if not user_id:
+        return redirect(url_for('login_router.login'))
+
+    db = current_app.config['db']
+    users_collection = db['users']
+
+    try:
+        user = users_collection.find_one({'_id': ObjectId(user_id)})
+        if not user:
+            return redirect(url_for('login_router.login'))
+    except Exception as e:
+        print(f"Error fetching user: {e}")
+        return redirect(url_for('login_router.login'))
+
     # Initialize session variables specific to easy mode
     if 'easy_current_topic_score' not in session:
         session['easy_current_topic_score'] = 0

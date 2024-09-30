@@ -12,21 +12,32 @@
 
 <!-- Navigation Bar -->
 <div class="nav-bar">
-    <div class="logo">
-        <a href="{{ url_for('home_router.home') }}">
-            <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}"
-                alt="Slide Smart Kids Logo">
+    <!-- Left-Most Container (Logo) -->
+    <div class="nav-item left-most">
+        <a href="{{ url_for('home_router.home') }}" class="logo">
+            <img src="{{ url_for('static', filename='images/slideSmartLogo.jpeg') }}" alt="Slide Smart Kids Logo">
         </a>
     </div>
-    <div class="nav-links">
+
+    <!-- Second Container (Home Link) -->
+    <div class="nav-item">
         <a href="{{ url_for('home_router.home') }}">Home</a>
+    </div>
+
+    <!-- Third Container (Profile Link) -->
+    <div class="nav-item">
         <a href="{{ url_for('profile_router.profile') }}">Profile</a>
+    </div>
+
+    <!-- Right-Most Container (Logout Link) -->
+    <div class="nav-item right-most">
         <a href="{{ url_for('logout_router.logout') }}">Logout</a>
     </div>
 </div>
-
 <div class="content-wrapper">
     <h1>{{ game_mode }} Game Summary</h1>
+    <br>
+    <br>
 
     <!-- Topics Won Section -->
     <div class="section mb-5">

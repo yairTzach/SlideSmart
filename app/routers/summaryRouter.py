@@ -7,10 +7,24 @@ summary_router = Blueprint('summary_router', __name__)
 
 @summary_router.route('/questions/<filename>/summary', methods=['GET'])
 def summary(filename):
-    # Check required session variables
+    user_id = request.cookies.get('userId')
+    if not user_id:
+        return redirect(url_for('login_router.login'))
+
+    db = current_app.config['db']
+    users_collection = db['users']
+
+    try:
+        user = users_collection.find_one({'_id': ObjectId(user_id)})
+        if not user:
+            return redirect(url_for('login_router.login'))
+    except Exception as e:
+        print(f"Error fetching user: {e}")
+        return redirect(url_for('login_router.login'))
+
+    # Check if required session variables are missing and display an appropriate message
     if 'topics_scores' not in session or 'wrong_answers' not in session:
-        return redirect(url_for('questions_router.questions',
-                                filename=filename, question_number=1))
+        return render_template('summary_error.html', message="Your session has expired. Please start a new game.")
 
     topics_won = []
     topics_lost = []
@@ -30,39 +44,19 @@ def summary(filename):
         topic = wrong['topic_name']
         wrong_answers_by_topic.setdefault(topic, []).append(wrong)
 
-    # Clear game-related session variables
-    session_keys = [
-        'current_topic_score', 'current_streak', 'current_level',
-        'question_count', 'current_topic_index', 'topics_scores',
-        'wrong_answers', 'total_questions_answered',
-        'easy_question_number', 'medium_question_number',
-        'hard_question_number'
-    ]
-    for key in session_keys:
-        session.pop(key, None)
-
     # Retrieve choose_game_url from the user's document in MongoDB
     user_id = request.cookies.get('userId')
-    print(f"[DEBUG] User ID from cookie: {user_id}")  # Debugging
 
     if user_id:
         db = current_app.config['db']
         users_collection = db['users']
         try:
             user = users_collection.find_one({'_id': ObjectId(user_id)})
-            print(f"[DEBUG] User document retrieved: {user}")  # Debugging
-
-            if user:
-                choose_game_url = user.get('choose_game_url', url_for('home_router.home'))
-                print(f"[DEBUG] choose_game_url retrieved from MongoDB: {choose_game_url}")  # Debugging
-            else:
-                print("[DEBUG] No user found with given user ID.")  # Debugging
-                choose_game_url = url_for('home_router.home')
+            choose_game_url = user.get('choose_game_url', url_for('home_router.home')) if user else url_for('home_router.home')
         except Exception as e:
-            print(f"[ERROR] Exception while retrieving user: {e}")  # Debugging
+            print(f"[ERROR] Exception while retrieving user: {e}")
             choose_game_url = url_for('home_router.home')
     else:
-        print("[DEBUG] No user ID found in cookies.")  # Debugging
         choose_game_url = url_for('home_router.home')
 
     return render_template('summary.html',
@@ -73,6 +67,8 @@ def summary(filename):
                            choose_game_url=choose_game_url,
                            game_mode='Standard',
                            passing_score=PASSING_SCORE)
+
+# Similar changes can be made to `hard_summary`, `medium_summary`, and `easy_summary` routes as well.
 
 @summary_router.route('/hard_questions/<filename>/summary', methods=['GET'])
 def hard_summary(filename):
