@@ -43,6 +43,13 @@ def summary(filename):
     for wrong in session['wrong_answers']:
         topic = wrong['topic_name']
         wrong_answers_by_topic.setdefault(topic, []).append(wrong)
+    session_keys = [
+        'medium_current_topic_score', 'medium_question_count',
+        'medium_current_topic_index', 'medium_topics_scores',
+        'medium_wrong_answers'
+    ]
+    for key in session_keys:
+        session.pop(key, None)
 
     # Retrieve choose_game_url from the user's document in MongoDB
     user_id = request.cookies.get('userId')
@@ -96,13 +103,6 @@ def hard_summary(filename):
         wrong_answers_by_topic.setdefault(topic, []).append(wrong)
 
     # Clear hard game-related session variables
-    session_keys = [
-        'hard_current_topic_score', 'hard_question_count',
-        'hard_current_topic_index', 'hard_topics_scores',
-        'hard_wrong_answers'
-    ]
-    for key in session_keys:
-        session.pop(key, None)
 
     # Retrieve choose_game_url from the user's document in MongoDB
     user_id = request.cookies.get('userId')
@@ -127,7 +127,14 @@ def hard_summary(filename):
     else:
         print("[DEBUG] No user ID found in cookies.")  # Debugging
         choose_game_url = url_for('home_router.home')
-
+    session_keys = [
+        'medium_current_topic_score', 'medium_question_count',
+        'medium_current_topic_index', 'medium_topics_scores',
+        'medium_wrong_answers'
+    ]
+    for key in session_keys:
+        session.pop(key, None)
+    
     return render_template('summary.html',
                            topics_won=topics_won,
                            topics_lost=topics_lost,
@@ -227,9 +234,16 @@ def easy_summary(filename):
     for wrong in session['easy_wrong_answers']:
         topic = wrong['topic_name']
         wrong_answers_by_topic.setdefault(topic, []).append(wrong)
+    session_keys = [
+        'medium_current_topic_score', 'medium_question_count',
+        'medium_current_topic_index', 'medium_topics_scores',
+        'medium_wrong_answers'
+    ]
+    for key in session_keys:
+        session.pop(key, None)
 
     # Clear easy game-related session variables
-
+    
     # Retrieve choose_game_url from the user's document in MongoDB
     user_id = request.cookies.get('userId')
     print(f"[DEBUG] User ID from cookie: {user_id}")  # Debugging

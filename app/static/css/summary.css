@@ -1,187 +1,157 @@
-/* summary.css */
-
-/* Reset default margins and paddings */
+/* Reset and Global Styling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Ensure the body and html elements take full height */
 html, body {
     height: 100%;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-/* Background image for the entire page */
 body {
-    background-image: url("../images/jh.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.16)), url('../images/jh.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #fff;
     display: flex;
     flex-direction: column;
+    color: #333;
 }
 
-/* Content Wrapper Styles */
-.content-wrapper {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 60px;
-    border-radius: 15px;
-    margin: 60px auto 0 auto;
-    max-width: 1200px;
-    flex-grow: 1; /* This makes the content wrapper grow to fill available space */
-}
-
-/* Style Headings */
-h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-h2 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-/* Style the accordion buttons */
-.accordion-button, .accordion-button:not(.collapsed) {
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.4);
-    border: none;
-    font-size: 1.5rem;
-}
-
-.accordion-button:focus {
-    box-shadow: none;
-}
-
-/* Remove borders from accordion items */
-.accordion-item {
-    background-color: transparent;
-    border: none;
-}
-
-/* Style the accordion body */
-.accordion-body {
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: 1.2rem;
-    line-height: 1.6;
-    padding: 30px;
-    border-radius: 10px;
-    color: #fff;
-}
-
-/* Question Card Styles */
-.question-card {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-}
-
-.question-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-}
-
-/* Options List Styling */
-.options-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.options-list li {
-    padding: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.options-list li:last-child {
-    border-bottom: none;
-}
-
-/* Correct and Incorrect Answer Styles */
-.correct-answer {
-    background-color: rgba(40, 167, 69, 0.2); /* Green background */
-    color: #28a745; /* Green text */
-}
-
-.incorrect-answer {
-    background-color: rgba(220, 53, 69, 0.2); /* Red background */
-    color: #dc3545; /* Red text */
-}
-
-/* Style the Return to Choose Game button */
-.btn-primary {
-    background-color:  #28a745; /* Gold color */
-    border-color:  #28a745;
-    font-size: 1.5rem;
-    padding: 0.75em 2em;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color:  #28a745;
-    border-color:  #28a745;
-}
-
-.btn-primary i {
-    margin-right: 0.5em;
-}
-
-/* Adjust paragraph text */
-p {
-    font-size: 1.2rem;
-}
-
-/* Ensure text colors are visible */
-.text-success, .text-danger {
-    color: #fff !important;
-}
-
-/* Navigation Bar Styles */
+/* Navigation Bar */
+/* Navigation Bar */
 .nav-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #FFD700; /* Gold color */
-    padding: 10px 20px;
-    position: fixed; /* Fix the navbar at the top */
+    padding: 10px;  /* Adjusted padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
     top: 0;
     left: 0;
-    right: 0;
     z-index: 1000;
 }
 
-.nav-bar .logo img {
-    height: 50px;
-}
-
-.nav-bar .nav-links a {
-    color: #000;
-    font-weight: bold;
-    margin-left: 20px;
+.nav-bar .nav-item a {
+    font-size: 1rem;  /* Reduced font size */
+    color: white;
     text-decoration: none;
-}
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
 
-.nav-bar .nav-links a:hover {
-    text-decoration: underline;
+    /* Update font-family to a more regular style */
+    font-family: Arial, Helvetica, sans-serif;  /* Use a simple sans-serif font */
 }
-
-/* Adjust the top margin of the content wrapper to account for fixed navbar */
+/* Content Wrapper */
 .content-wrapper {
-    margin-top: 100px;
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    padding: 30px;  /* Reduced padding */
+    border-radius: 20px;  /* Adjusted border radius */
+    margin: 120px auto;  /* Reduced margin for better spacing */
+    max-width: 800px;  /* Adjusted width */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Footer Styles (if any) */
+/* Main Title */
+.kids-title {
+    font-size: 2.8rem;  /* Reduced font size */
+    color: #EF5350;
+    margin-bottom: 15px;
+}
+
+/* Score Container */
+.score-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.score-box {
+    background: #FFCC80;
+    padding: 15px;  /* Reduced padding */
+    border-radius: 15px;
+}
+
+.score-text {
+    font-size: 1.5rem;  /* Reduced font size */
+    color: #333;
+    margin-right: 8px;
+}
+
+.score {
+    font-size: 2rem;  /* Reduced font size */
+    color: #42A5F5;
+}
+
+/* Accordion Styling */
+.accordion-item {
+    margin-bottom: 12px;
+}
+
+.accordion-button {
+    font-size: 1.5rem;  /* Reduced font size */
+    padding: 12px;  /* Reduced padding */
+}
+
+/* Navigation Buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;  /* Reduced gap */
+    margin: 20px 0;  /* Reduced margin */
+}
+
+.btn-primary {
+    padding: 12px 25px;  /* Reduced padding */
+    font-size: 1.3rem;  /* Reduced font size */
+    background-color: #FFCC80;
+    color: black;
+}
+
+/* Footer */
 footer {
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    margin-top: auto; /* Push the footer to the bottom */
+    background-color: #FFCCBC;
+    color: #333;
+    padding: 15px;  /* Reduced padding */
+}
+/* Correct and Incorrect Answer Styles */
+.options-list li.correct-answer {
+    background-color: rgba(76, 175, 80, 0.2); /* Light green */
+    color: #388E3C; /* Darker green text */
+    border-left: 5px solid #388E3C; /* Green left border */
+    position: relative;
+}
+
+/* Green checkmark for correct answers */
+.options-list li.correct-answer::before {
+    content: "\2713"; /* Unicode for check mark */
+    color: #388E3C;
+    font-weight: bold;
+    position: absolute;
+    left: -25px; /* Position the checkmark */
+}
+
+/* Incorrect and user-selected Answer Styles */
+.options-list li.incorrect-answer {
+    background-color: rgba(244, 67, 54, 0.2); /* Light red */
+    color: #D32F2F; /* Darker red text */
+    border-left: 5px solid #D32F2F; /* Red left border */
+    position: relative;
+}
+
+/* Red cross mark for incorrect answers */
+.options-list li.incorrect-answer::before {
+    content: "\2717"; /* Unicode for cross mark */
+    color: #D32F2F;
+    font-weight: bold;
+    position: absolute;
+    left: -25px; /* Position the cross mark */
+}
+
+/* Neutral Answer Styles */
+.options-list li.neutral-option {
+    background-color: rgba(255, 255, 255, 0.2); /* Neutral background */
+    color: #333;
+    border-left: 5px solid #BDBDBD; /* Gray left border */
 }

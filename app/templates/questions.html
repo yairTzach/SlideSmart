@@ -18,7 +18,6 @@
     <section class="u-align-center u-clearfix u-container-align-center u-section-1">
         <div class="u-clearfix u-sheet u-valign-middle">
             <!-- Kids-Friendly Heading -->
-
             <!-- Topic and Level Title -->
             <h2 class="u-text u-text-default u-title u-title-level">{{ topic_name }} - Mixed Levels</h2>
 
@@ -31,9 +30,11 @@
                     <img class="score-icon" src="{{ url_for('static', filename='images/star.png') }}" alt="Score">
                     <span class="score-text">{{ topic_score }}</span>
                 </div>
+                <h2 class="fancy-title">Mixed Level Mode</h2>
+
                 <div class="u-timer">
                     <img class="timer-icon" src="{{ url_for('static', filename='images/clock.png') }}" alt="Time Left">
-                    <span class="timer-text" id="timer">30</span>
+                    <span class="timer-text" id="timer">60</span>
                 </div>
             </div>
 
@@ -81,7 +82,7 @@
     <script>
         const form = document.getElementById('question-form');
         const timerElement = document.getElementById('timer');
-        const MAX_TIME = 30; // Maximum time per question
+        const MAX_TIME = 60; // Maximum time per question
 
         // Timer logic
         let startTime = localStorage.getItem('startTime');

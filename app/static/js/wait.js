@@ -10,18 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'complete') {
-                    // Enable the start button
-                    const startButton = document.getElementById('startButton');
-                    startButton.style.pointerEvents = 'auto';  // Enable the button
-                    startButton.style.opacity = '1';           // Make the button fully visible
-                    // Set the href to the chooseGame page
-                    startButton.href = '/chooseGame/' + filename;
-
-                    // Remove countdown functionality if any
-                    startButton.addEventListener('click', function (event) {
-                        // Proceed directly
-                    });
-
+                    // Automatically redirect to the choose game page when processing is complete
+                    window.location.href = '/chooseGame/' + filename;
                 } else if (data.status === 'failed') {
                     // Handle failure case, e.g., alert the user
                     alert('Processing failed. Please try again.');

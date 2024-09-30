@@ -12,6 +12,27 @@
   padding: 0;
   margin: 0;
 }
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-bar .logo img {
+  height: 50px;
+}
+
+.nav-bar .nav-links a {
+  color: #000;
+  font-weight: bold;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.nav-bar .nav-links a:hover {
+  text-decoration: underline;
+}
+
 
 
 /* Right Section Styling */
@@ -531,4 +552,5 @@ body, html {
       min-height: 260px;
       max-width: 90%; /* Further reduce image width */
   }
+  
 }
