@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>Medium Mode Question</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NYPHBXNRT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ONYPHBXNRT');
+    </script>
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/questions.css') }}" media="screen">
@@ -20,6 +28,12 @@
             <!-- Kids-Friendly Heading -->
             <!-- Topic and Level Title -->
             <h2 class="u-text u-text-default u-title u-title-level">{{ topic_name }} - Medium Mode</h2>
+            <div class="quit-button-container">
+                <a href="{{ url_for('questions_router.quit_game', filename=filename) }}" class="u-btn u-button-style u-quit-btn">
+                    <i class="bi bi-x-circle"></i> Quit Game
+                </a>
+            </div>
+
 
             <!-- Score and Timer -->
             <div class="u-score-timer">

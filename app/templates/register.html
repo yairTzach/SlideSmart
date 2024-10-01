@@ -4,7 +4,26 @@
   <!-- Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register - Slide Smart Kids</title>
+  <title>Register - Slide Smart </title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NYPHBXNRT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0NYPHBXNRT');
+
+  // Capture form submission event
+  function trackRegistration(username) {
+    console.log("Tracking registration event with username:", username);  // Debugging log
+    gtag('event', 'register', {
+      'event_category': 'User Registration',
+      'event_label': username,
+      'value': 1,
+      'user_name': username
+    });
+  }
+  </script>
+
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css') }}">

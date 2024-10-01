@@ -174,7 +174,7 @@ def questions(filename, question_number):
     # Shuffle the options before rendering
     options = current_question['options']
     random.shuffle(options)
-
+    
     return render_template(
         'questions.html',
         filename=filename,
@@ -289,3 +289,18 @@ def demote_level(current_level):
     elif current_level == 'medium':
         return 'easy'
     return 'easy'
+@questions_router.route('/quit_game/<filename>', methods=['GET'])
+def quit_game(filename):
+    try:
+        # Clear the session
+        session.clear()  # Clears all session data
+        print("Session cleared")
+
+        # Redirect to the choose game page with the specified filename
+        redirect_url = url_for('home_router.choose_game', filename=filename)
+        print(f"Redirecting to: {redirect_url}")  # Print the redirect URL for debugging
+        return redirect(redirect_url)
+
+    except Exception as e:
+        print(f"Error in quit_game: {e}")
+        return "An error occurred while quitting the game.", 500  # Return an error message
