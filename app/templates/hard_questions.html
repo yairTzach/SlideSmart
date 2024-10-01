@@ -25,11 +25,66 @@
 <body class="u-body u-xl-mode" data-lang="en">
     <section class="u-align-center u-clearfix u-container-align-center u-section-1">
         <div class="u-clearfix u-sheet u-valign-middle">
-            <div class="quit-button-container">
-                <a href="{{ url_for('questions_router.quit_game', filename=filename) }}" class="u-btn u-button-style u-quit-btn">
-                    <i class="bi bi-x-circle"></i> Quit Game
-                </a>
-            </div>
+    <meta charset="utf-8">
+<!-- Quit Button for Hard Mode -->
+<div class="quit-button-container">
+    <a href="{{ url_for('hard_questions_router.quit_game', filename=filename) }}" class="u-btn u-button-style u-quit-btn" id="hard-quit-btn">
+        <i class="bi bi-x-circle"></i> Quit Hard Mode
+    </a>
+</div>
+
+<!-- Quit Hard Mode Tracking Script -->
+<script>
+    // Get the hard mode quit button element
+    const hardQuitBtn = document.getElementById('hard-quit-btn');
+
+    // Track Hard Mode Quit event
+    hardQuitBtn.addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent the default action to allow tracking first
+
+        // Get the number of hard questions answered from the session (assuming it's available server-side)
+        let totalQuestionsAnswered = {{ session['hard_question_count'] }} || 0;
+
+        // Send data to Google Analytics
+        gtag('event', 'hard_mode_quit', {
+            'event_category': 'Game Interaction',
+            'event_label': 'Quit Hard Mode',
+            'value': totalQuestionsAnswered
+        });
+
+        // Wait for tracking to complete before redirecting (1 second delay)
+        setTimeout(function() {
+            window.location.href = "{{ url_for('hard_questions_router.quit_game', filename=filename) }}";
+        }, 1000);  // Delay of 1000ms (1 second) to ensure the tracking event is sent
+    });
+</script>
+    
+    <!-- Quit Hard Mode Tracking Script -->
+    <script>
+        // Get the hard mode quit button element
+        const hardQuitBtn = document.getElementById('hard-quit-btn');
+    
+        // Track Hard Mode Quit event
+        hardQuitBtn.addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default action to allow tracking first
+    
+            // Get the number of hard questions answered from the session (assuming it's available server-side)
+            let totalQuestionsAnswered = {{ session['hard_question_count'] }};
+    
+            // Send data to Google Analytics
+            gtag('event', 'hard_mode_quit', {
+                'event_category': 'Game Interaction',
+                'event_label': 'Quit Hard Mode',
+                'value': totalQuestionsAnswered
+            });
+    
+            // Wait for tracking to complete before redirecting
+            setTimeout(function() {
+                window.location.href = "{{ url_for('hard_questions_router.quit_game', filename=filename) }}";
+            }, 500);  // Delay of 500ms to ensure tracking event is sent
+        });
+    </script>
+
 
             <!-- Kids-Friendly Heading -->
 

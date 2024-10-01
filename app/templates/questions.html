@@ -35,42 +35,42 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/questions.css') }}" media="screen">
     <script class="u-script" type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}" defer></script>
     <meta name="generator" content="Nicepage 6.16.5, nicepage.com">
-    <style>
-        .u-quit-btn {
-            background-color: #FFCC80; /* Red background for quit button */
-            color: black;
-            border: none;
-            border-radius: 5px; /* Rounded corners */
-            padding: 10px 20px; /* Padding for size */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px; /* Font size */
-            margin: 10px 0; /* Margin for spacing */
-            cursor: pointer; /* Pointer cursor on hover */
-            transition: background-color 0.3s ease; /* Smooth transition */
-        }
-
-        .u-quit-btn:hover {
-            background-color: #e60000; /* Darker red on hover */
-        }
-
-        .quit-button-container {
-            position: absolute; /* Positioning */
-            top: 20px; /* Distance from top */
-            right: 20px; /* Distance from right */
-        }
-    </style>
 </head>
 <body class="u-body u-xl-mode" data-lang="en">
     <section class="u-align-center u-clearfix u-container-align-center u-section-1">
         <div class="u-clearfix u-sheet u-valign-middle">
             <!-- Quit Button located at the top right corner -->
             <div class="quit-button-container">
-                <a href="{{ url_for('questions_router.quit_game', filename=filename) }}" class="u-btn u-button-style u-quit-btn">
+                <a href="{{ url_for('questions_router.quit_game', filename=filename) }}" class="u-btn u-button-style u-quit-btn" id="quit-btn">
                     <i class="bi bi-x-circle"></i> Quit Game
                 </a>
             </div>
+            <script>
+                // Get the quit button element
+                const quitBtn = document.getElementById('quit-btn');
+            
+                // Track Quit Game event
+                quitBtn.addEventListener('click', function(event) {
+                    event.preventDefault();  // Prevent the default action to allow tracking first
+            
+                    // Get the number of questions answered from the session (assuming it's available server-side)
+                    let totalQuestionsAnswered = {{ session['total_questions_answered'] }} || 0;
+            
+                    // Send data to Google Analytics
+                    gtag('event', 'quit_game', {
+                        'event_category': 'Game Interaction',
+                        'event_label': 'Quit Game',
+                        'value': totalQuestionsAnswered
+                    });
+            
+                    // Wait for tracking to complete before redirecting
+                    setTimeout(function() {
+                        window.location.href = "{{ url_for('questions_router.quit_game', filename=filename) }}";
+                    }, 500);  // Delay of 500ms to ensure tracking event is sent
+                });
+            </script>
+            
+            
 
             <!-- Kids-Friendly Heading -->
             <h2 class="u-text u-text-default u-title u-title-level">{{ topic_name }} - Mixed Levels</h2>
@@ -97,6 +97,23 @@
 
             <!-- Options Form -->
             <form id="question-form" method="post" action="{{ url_for('questions_router.questions', filename=filename, question_number=question_number) }}" class="u-form">
+
+                <script>
+                    const form = document.getElementById('question-form');
+                
+                    form.addEventListener('submit', function() {
+                        // Get the number of questions answered from the session (assuming it's available server-side)
+                        let totalQuestionsAnswered = {{ session['total_questions_answered'] }} || 0;
+                
+                        // Send event to Google Analytics
+                        gtag('event', 'question_answered', {
+                            'event_category': 'Game Interaction',
+                            'event_label': 'Question Answered',
+                            'value': totalQuestionsAnswered
+                        });
+                    });
+                </script>
+                
                 <!-- Hidden field to store the correct answer -->
                 <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
 

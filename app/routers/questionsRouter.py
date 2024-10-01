@@ -85,6 +85,8 @@ def questions(filename, question_number):
         current_question_number = session['hard_question_number']
 
     if request.method == 'POST':
+        session['total_questions_answered'] += 1
+
         # Get selected option and correct answer from the form
         selected_option = request.form.get('option')
         correct_answer = request.form.get('correct_answer')  # Value from hidden input field
@@ -300,7 +302,6 @@ def quit_game(filename):
         redirect_url = url_for('home_router.choose_game', filename=filename)
         print(f"Redirecting to: {redirect_url}")  # Print the redirect URL for debugging
         return redirect(redirect_url)
-
     except Exception as e:
         print(f"Error in quit_game: {e}")
         return "An error occurred while quitting the game.", 500  # Return an error message

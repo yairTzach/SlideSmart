@@ -7,8 +7,26 @@ from bson import ObjectId
 
 hard_questions_router = Blueprint('hard_questions_router', __name__)
 
+
+@hard_questions_router.route('/quit_game/<filename>', methods=['GET'])
+def quit_game(filename):
+    try:
+        # Clear only the session variables related to the hard mode
+        session.pop('hard_current_topic_score', None)
+        session.pop('hard_question_count', None)
+        session.pop('hard_current_topic_index', None)
+        session.pop('hard_topics_scores', None)
+        session.pop('hard_wrong_answers', None)
+
+        # Redirect to the choose game page or home page
+        return redirect(url_for('home_router.choose_game', filename=filename))
+    except Exception as e:
+        print(f"Error in hard_mode_quit: {e}")
+        return "An error occurred while quitting the game.", 500
+
 @hard_questions_router.route('/hard_questions/<filename>/<int:question_number>', methods=['GET', 'POST'])
 def hard_questions(filename, question_number):
+    
     user_id = request.cookies.get('userId')
     if not user_id:
         return redirect(url_for('login_router.login'))
@@ -31,7 +49,6 @@ def hard_questions(filename, question_number):
         session['hard_current_topic_index'] = 0
         session['hard_topics_scores'] = []
         session['hard_wrong_answers'] = []
-
     # Read and parse the questions
     questions_folder = current_app.config['QUESTIONS_FOLDER']
     txt_filename = f"{filename}.txt"

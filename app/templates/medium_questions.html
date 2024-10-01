@@ -7,10 +7,28 @@
     <title>Medium Mode Question</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NYPHBXNRT"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ONYPHBXNRT');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0NYPHBXNRT');
+
+        // Track when a game mode is selected
+        function trackGameModeSelection(mode) {
+            gtag('event', 'game_mode_selected', {
+                'event_category': 'Game Interaction',
+                'event_label': mode,
+                'value': 1
+            });
+        }
+
+        // Track when users navigate using the top navigation bar
+        function trackNavigation(label) {
+            gtag('event', 'navigation', {
+                'event_category': 'User Navigation',
+                'event_label': label,
+                'value': 1
+            });
+        }
     </script>
 
     <!-- CSS Files -->
@@ -29,11 +47,34 @@
             <!-- Topic and Level Title -->
             <h2 class="u-text u-text-default u-title u-title-level">{{ topic_name }} - Medium Mode</h2>
             <div class="quit-button-container">
-                <a href="{{ url_for('questions_router.quit_game', filename=filename) }}" class="u-btn u-button-style u-quit-btn">
+                <a href="{{ url_for('medium_questions_router.quit_medium_game' , filename=filename) }}" class="u-btn u-button-style u-quit-btn" id="quit-btn">
                     <i class="bi bi-x-circle"></i> Quit Game
                 </a>
             </div>
-
+            <script>
+                // Get the quit button element
+                const quitBtn = document.getElementById('quit-btn');
+            
+                // Track Quit Game event
+                quitBtn.addEventListener('click', function(event) {
+                    event.preventDefault();  // Prevent the default action to allow tracking first
+            
+                    // Get the number of questions answered from the session (assuming it's available server-side)
+                    let totalQuestionsAnswered = {{ session['total_questions_answered'] }} || 0;
+            
+                    // Send data to Google Analytics
+                    gtag('event', 'quit_game', {
+                        'event_category': 'Game Interaction',
+                        'event_label': 'Quit Game',
+                        'value': totalQuestionsAnswered
+                    });
+            
+                    // Wait for tracking to complete before redirecting
+                    setTimeout(function() {
+                        window.location.href = "{{ url_for('questions_router.quit_game', filename=filename) }}";
+                    }, 500);  // Delay of 500ms to ensure tracking event is sent
+                });
+            </script>
 
             <!-- Score and Timer -->
             <div class="u-score-timer">
@@ -135,6 +176,19 @@
         form.addEventListener('submit', () => {
             clearInterval(timer); // Ensure the interval is cleared when submitting
             localStorage.removeItem('mediumStartTime');
+        });
+
+        // Track Medium Mode Question Answered Event
+        form.addEventListener('submit', () => {
+            // Get the number of medium questions answered from the session (assuming it's available server-side)
+            let totalQuestionsAnswered = {{ session['medium_question_count'] }} || 0;
+
+            // Send data to Google Analytics
+            gtag('event', 'medium_mode_question_answered', {
+                'event_category': 'Game Interaction',
+                'event_label': 'Medium Mode',
+                'value': totalQuestionsAnswered
+            });
         });
     </script>
 </body>
