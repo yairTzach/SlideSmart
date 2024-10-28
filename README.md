@@ -93,13 +93,17 @@ cd /path/to/SlideSmart
 Install all necessary dependencies:
 pip install -r requirements.txt
 
-### Step 3: Configure Environment Variables
-Create a .env file in the root directory with your MongoDB URI and other environment variables:
-MONGODB_URI=mongodb://localhost:27017/slide_smart
-SECRET_KEY=your_secret_key
 
-### Step 4: Start the Application
+### Step 3: Start the Application
 Launch the application using Flask:
 python app/main.py
 
 The app should now be accessible at http://127.0.0.1:5000.
+Note: Ensure that your MongoDB server is running before starting the application.
+
+
+
+
+
+
+
