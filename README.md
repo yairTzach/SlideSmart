@@ -15,14 +15,9 @@ php
 Copy code
 SlideSmart/
 ├── README.md                      # Project documentation
-├── __pycache__/                   
-│   └── pdf_extractor.cpython-311.pyc
 ├── app/                           # Main application folder
-│   ├── __pycache__/
-│   │   └── app.cpython-311.pyc
 │   ├── main.py                    # Entry point for the application
 │   ├── routers/                   # Route handlers
-│   │   ├── __pycache__/
 │   │   ├── aboutUsRouter.py
 │   │   ├── easyQuestionsRouter.py
 │   │   ├── hardQuestionsRouter.py
@@ -34,11 +29,8 @@ SlideSmart/
 │   │   ├── questionsRouter.py
 │   │   ├── registerRouter.py
 │   │   └── summaryRouter.py
-│   │
 │   ├── services/                  # Utility and persistence services
-│   │   ├── __pycache__/
 │   │   └── persist.py             # Data persistence utility
-│   │
 │   ├── static/                    # Static files (CSS, images, JavaScript, sound)
 │   │   ├── css/                   # CSS stylesheets
 │   │   │   ├── aboutUs.css
@@ -53,7 +45,7 @@ SlideSmart/
 │   │   │   ├── summary.css
 │   │   │   └── wait.css
 │   │   ├── images/                # Image assets
-│   │   │   ├── [image files]
+│   │   │   └── [image files]
 │   │   ├── js/                    # JavaScript files
 │   │   │   ├── jquery.js
 │   │   │   ├── login.js
@@ -63,7 +55,6 @@ SlideSmart/
 │   │   └── sound/                 # Sound assets
 │   │       ├── background.mp3
 │   │       └── questions.mp3
-│   │
 │   └── templates/                 # HTML templates
 │       ├── aboutUs.html
 │       ├── audioPlayer.html
@@ -79,7 +70,6 @@ SlideSmart/
 │       ├── register.html
 │       ├── summary.html
 │       └── wait.html
-│
 ├── generated_questions/           # Stores generated questions
 └── uploads/                       # Stores uploaded files
 Installation & Setup
@@ -87,13 +77,15 @@ Prerequisites
 Python 3.7+: Ensure Python is installed.
 MongoDB: Install MongoDB for user data storage and quiz progress tracking.
 Step 1: Project Setup
-Download and extract the project zip file.
-Open the terminal and navigate to the project directory:
+Download and Extract the project zip file to your computer.
+
+Open the Terminal and navigate to the project directory:
+
 bash
 Copy code
 cd /path/to/SlideSmart
 Step 2: Install Dependencies
-Install all necessary dependencies:
+Install all necessary dependencies using the following command:
 
 bash
 Copy code
@@ -101,15 +93,20 @@ pip install -r requirements.txt
 Step 3: Configure Environment Variables
 Create a .env file in the root directory with your MongoDB URI and other environment variables:
 
-bash
+env
 Copy code
 MONGODB_URI=mongodb://localhost:27017/slide_smart
 SECRET_KEY=your_secret_key
+OPENAI_API_KEY=your_openai_api_key
+Replace your_secret_key and your_openai_api_key with your actual secret key and OpenAI API key.
+
 Step 4: Start the Application
-Launch the application using Flask:
+Launch the application using the following command:
 
 bash
 Copy code
 python app/main.py
 The app should now be accessible at http://127.0.0.1:5000.
+
+
 
