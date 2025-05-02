@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-Slide Smart is an interactive educational platform designed to make learning more accessible and adaptive for users of all ages. This platform dynamically generates quizzes based on user-uploaded PDF content, leveraging tools such as Python, Flask, and the OpenAI API. Slide Smart adjusts quiz difficulty in real-time based on user performance, providing a unique learning experience tailored to each user. With scoring, feedback, multiple game modes, and robust session management, Slide Smart enhances engagement and educational outcomes.
+Quiz AI is an interactive educational platform designed to make learning more accessible and adaptive for users of all ages. This platform dynamically generates quizzes based on user-uploaded PDF content, leveraging tools such as Python, Flask, and the OpenAI API. Slide Smart adjusts quiz difficulty in real-time based on user performance, providing a unique learning experience tailored to each user. With scoring, feedback, multiple game modes, and robust session management, Slide Smart enhances engagement and educational outcomes.
 
 ## Key Features
 
